@@ -3,69 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <title>leafletMap</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="leaflet/leaflet.js"></script>
 
-    <script src="https://cdn.bootcss.com/proj4js/2.4.3/proj4.js"></script>
-    <script src="https://cdn.bootcss.com/proj4leaflet/1.0.1/proj4leaflet.min.js"></script>>
+    <script src="leaflet/plugins/providers/proj4.js"></script>
+    <script src="leaflet/plugins/providers/proj4leaflet.js"></script>
     <script type="text/javascript" src="leaflet/plugins/leaflet.ChineseTmsProviders.js"></script>
 </head>
 <body>
-<div id="map" style="width: 100vw;height: 100vh">
+<div id="map" style="width: 99vw;height: 99vh">
 </div>
 <script>
-
+    /**
+     * 天地图内容
+     */
     var normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
-            maxZoom: 18,
-            minZoom: 5
-        }),
-        normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion', {
-            maxZoom: 18,
-            minZoom: 5
-        }),
-        imgm = L.tileLayer.chinaProvider('TianDiTu.Satellite.Map', {
-            maxZoom: 18,
-            minZoom: 5
-        }),
-        imga = L.tileLayer.chinaProvider('TianDiTu.Satellite.Annotion', {
-            maxZoom: 18,
-            minZoom: 5
-        });
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var imgm = L.tileLayer.chinaProvider('TianDiTu.Satellite.Map', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var imga = L.tileLayer.chinaProvider('TianDiTu.Satellite.Annotion', {
+        maxZoom: 18,
+        minZoom: 5
+    });
 
-    var normal = L.layerGroup([normalm, normala]),
-        image = L.layerGroup([imgm, imga]);
+    var terrianm = L.tileLayer.chinaProvider('TianDiTu.Terrain.Map',{
+        maxZoom: 18,
+        minZoom: 5
+    });
+
+    var terraina = L.tileLayer.chinaProvider('TianDiTu.Terrain.Annotion',{
+        maxZoom: 18,
+        minZoom: 5
+    })
+
+    var TDTNormal = L.layerGroup([normalm, normala]);
+    var TDTImage = L.layerGroup([imgm, imga]);
+    var TDTTerrain = L.layerGroup([terrianm,terraina]);
+
+    /**
+     * 高德地图
+     */
+    var GaodeNormal = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var Gaodimgem = L.tileLayer.chinaProvider('GaoDe.Satellite.Map', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var Gaodimga = L.tileLayer.chinaProvider('GaoDe.Satellite.Annotion', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var GaodeImage = L.layerGroup([Gaodimgem, Gaodimga]);
+
+
+    /**
+     * 谷歌
+     */
+    var GoogleNormal = L.tileLayer.chinaProvider('Google.Normal.Map', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+
+    var satelliteMap = L.tileLayer.chinaProvider('Google.Satellite.Map', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+
+    var satelliteAnnotion = L.tileLayer.chinaProvider("Google.Satellite.Annotion",{
+        maxZoom:18,
+        minZoom:5
+    });
+
+    var GoogleSatellite = L.layerGroup([satelliteMap,satelliteAnnotion]);
+
+
+    //智图地图
+    var GeoqMap = L.tileLayer.chinaProvider('Geoq.Normal.Map', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var GeoqBlue = L.tileLayer.chinaProvider('Geoq.Normal.PurplishBlue', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var GeoqGray = L.tileLayer.chinaProvider('Geoq.Normal.Gray', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var GeoqWarm = L.tileLayer.chinaProvider('Geoq.Normal.Warm', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var GeoqHydro = L.tileLayer.chinaProvider('Geoq.Theme.Hydro', {
+        maxZoom: 18,
+        minZoom: 5
+    });
+
+    var OSMMap = L.tileLayer.chinaProvider('OSM.Normal.Map',{
+        maxZoom:18,
+        minZoom:5
+    });
+
+    var BDNormal = L.tileLayer.chinaProvider('Baidu.Normal.Map',{
+        maxZoom:18,
+        minZoom:5
+    });
+
+    var BDimgm = L.tileLayer.chinaProvider('Baidu.Satellite.Map',{
+        maxZoom: 18,
+        minZoom: 5
+    });
+    var BDimga = L.tileLayer.chinaProvider('Baidu.Satellite.Annotion',{
+        maxZoom:18,
+        minZoom:5
+    });
+
+    var BDImage = L.layerGroup(BDimgm,BDimga);
+
+
+    var offImgurl = 'https://localhost:4438/{z}/{x}/{y}.jpg';
+    //初始化 地图，这个view要设置到离线地图的范围，不然什么都没有
+    //var leafletMap = L.map('mapDiv').setView([39.2, 117.25], 13);
+    //将图层加载到地图上，并设置最大的聚焦还有map样式
+    var localLayer = L.tileLayer(offImgurl, {
+        maxZoom: 18,
+        minZoom:5
+    });
+    var localGroup = L.layerGroup([localLayer]);
+
 
     var baseLayers = {
-        "地图": normal,
-        "影像": image,
-    }
+        "天地图": TDTNormal,
+        "天地图影像": TDTImage,
+        "天地图混合": TDTTerrain,
 
-    var overlayLayers = {
+        "高德地图": GaodeNormal,
+        "高德影像": GaodeImage,
 
+        // "百度地图": BDNormal,
+        // "百度影像": BDImage,
+
+        "谷歌地图": GoogleNormal,
+        "谷歌影像": GoogleSatellite,
+
+        "智图地图": GeoqMap,
+        "智图午夜蓝": GeoqBlue,
+        "智图灰色": GeoqGray,
+        "智图暖色": GeoqWarm,
+        "智图鸟瞰": GeoqHydro,
+
+        "OSM": OSMMap,
+
+        "离线影像": localGroup
     }
 
     var map = L.map("map", {
+
+        //crs: L.CRS.Baidu, 百度地图专用
+
         center: [31.849584, 117.245202],
         zoom: 12,
-        //layers: [normal],
+        layers: [localLayer],
         zoomControl: false
     });
 
-    //L.control.layers(baseLayers, overlayLayers).addTo(map);
+    L.control.layers(baseLayers, null).addTo(map);
     L.control.zoom({
         zoomInTitle: '放大',
         zoomOutTitle: '缩小'
     }).addTo(map);
 
 
-    var url = 'https://localhost:4438/{z}/{x}/{y}.jpg';
-    //初始化 地图，这个view要设置到离线地图的范围，不然什么都没有
-    //var leafletMap = L.map('mapDiv').setView([39.2, 117.25], 13);
-    //将图层加载到地图上，并设置最大的聚焦还有map样式
-    L.tileLayer(url, {
-        maxZoom: 18,
-        id: 'mapbox.streets'
-    }).addTo(map);
 
 </script>
 </body>
