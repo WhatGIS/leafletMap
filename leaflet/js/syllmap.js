@@ -1,9 +1,14 @@
+/**
+ * 所有引用的 plugins，不要随意更新到官网或者 github上的新版本，有些 plugins 已进行修改定制。
+ * zhangjie.20200527
+ */
 
 var  SYLLMap = function(optOptions){
 
     let options = optOptions || {};
     let id = options.id;
     let map = null;
+
     let areaLayer = new L.featureGroup();
 
     let gatherCluster = false;//是否聚合的标识
@@ -15,6 +20,8 @@ var  SYLLMap = function(optOptions){
     let overLayer;
 
     let searchControl;
+
+    let printer;
 
     let dataStations = []; //站点数据
     /**
@@ -59,9 +66,8 @@ var  SYLLMap = function(optOptions){
             }
 
             searchControl = new L.Control.Search({
-                position:"topright",
-                //layer: markerLayer,
-                sourceData: localData,
+                position:"topleft",
+                sourceData: localData,//采用数据传递，不再使用图层处理数据
                 initial:false,
                 zoom: 18,
                 //marker:true,
@@ -70,13 +76,25 @@ var  SYLLMap = function(optOptions){
                 hideMarkerOnCollapse:true
             });
             map.addControl(searchControl);
+
+            let measureControl = new L.Control.Measure({
+                position: 'topright',
+                primaryLengthUnit: 'meters',
+                secondaryLengthUnit: 'kilometers',
+                primaryAreaUnit: 'acres',
+                secondaryAreaUnit: 'sqmeters',
+                activeColor: '#e2a25d',
+                completedColor: '#f16303'
+            });
+            measureControl.addTo(map);
         };
     };
 
     function getOverLayers(){
-        addArea();
         addStations();
+        addArea();
         //return [areaLayer,markerLayer];
+        //
     }
 
     /**
@@ -92,14 +110,14 @@ var  SYLLMap = function(optOptions){
      * @param color
      */
     function drawDivision(area,color){
-        var colors = ["#8A2BE2","#A52A2A","#DEB887","#5F9EA0","#F0F8FF","#FAEBD7","#7FFFD4","#F0FFFF","#F5F5DC","#FFE4C4"];
-        var coords = area.split(","),latlngs = [];
+        let colors = ["#8A2BE2","#A52A2A","#DEB887","#5F9EA0","#F0F8FF","#FAEBD7","#7FFFD4","#F0FFFF","#F5F5DC","#FFE4C4"];
+        let coords = area.split(","),latlngs = [];
         for(var j=0;j<coords.length;j++){
             latlngs.push([parseFloat(coords[j].split(' ')[1]),parseFloat(coords[j].split(' ')[0])])
         }
-        var Color = colors[Math.round(Math.random()*10)];
-        var polygon = new L.Polygon(latlngs, {
-            fillOpacity: 0.6,
+        let Color = colors[Math.round(Math.random()*10)];
+        let polygon = new L.Polygon(latlngs, {
+            fillOpacity: 0.5,
             opacity: 1,
             dashArray: "5,5",
             weight: 3,
@@ -110,10 +128,9 @@ var  SYLLMap = function(optOptions){
 
     function getDivisions(){
         areaLayer.clearLayers();
-        // 5d2185abbdb7fc00b8a36366 合肥线上
-        // uniecgs803594e03duniecgs 本地
         //var conditions={"conditions":[{"Field":"cid","Operate":"=","Value":GCtx.customer._id,"Relation":"and"},{"Field":"pid","Operate":"=","Value":"5d2185abbdb7fc00b8a36366","Relation":"and"}],"order":[{"Field":"w","Type":false}],"size":999,"index":1}
         //Service.getdivisions(conditions,function(rep){
+
         $.getJSON("/leafletMap/leaflet/data/area.json",function(areaJson){
             var rows = areaJson.Response.rows;
             console.log(rows);
@@ -126,8 +143,6 @@ var  SYLLMap = function(optOptions){
             }
             //areaLayer.addTo(map);
         });
-
-        //})
     };
 
     /**
@@ -140,15 +155,15 @@ var  SYLLMap = function(optOptions){
         //var conditions={"conditions":[{"Field":"cid","Operate":"=","Value":GCtx.customer._id,"Relation":"and"},{"Field":"pid","Operate":"=","Value":"5d2185abbdb7fc00b8a36366","Relation":"and"}],"order":[{"Field":"w","Type":false}],"size":999,"index":1}
         //Service.getdivisions(conditions,function(rep){
         $.getJSON("/leafletMap/leaflet/data/HFStations.json",function(stationJson){
-            var data = stationJson.RECORDS;
+            let data = stationJson.RECORDS;
             console.log(data);
             if(data.length>0){
 
-                var data1 = reSizeData(data)
+                let data1 = reSizeData(data)
 
                 renderStation(data1);
             }
-            //areaLayer.addTo(map);
+            areaLayer.addTo(map);
         });
     };
 
@@ -170,7 +185,7 @@ var  SYLLMap = function(optOptions){
      * @returns {[]}
      */
     function reSizeData(data){
-
+        dataStations = [];
         for (let i = 0; i < data.length; i++) {
             let a = data[i];
             let newData = {};
@@ -203,9 +218,9 @@ var  SYLLMap = function(optOptions){
         let warnicon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/ico29.gif"});
 
         markerLayer.clearLayers();
-        markerLayer = null;
 
-        if(gatherCluster){
+        if(gatherCluster){ //聚合模式
+
             markerLayer = L.markerClusterGroup({ chunkedLoading: true });
 
             for (let i = 0; i < dataStations.length; i++) {
@@ -234,8 +249,10 @@ var  SYLLMap = function(optOptions){
             }
 
             map.addLayer(markerLayer);
-        }else{
-            markerLayer = new L.layerGroup();
+
+        }else{ //非聚合模式
+
+            markerLayer = new L.layerGroup(null,{pane:"markerPane"});
 
             for (let i = 0; i < dataStations.length; i++) {
                 let a = dataStations[i];
@@ -243,6 +260,7 @@ var  SYLLMap = function(optOptions){
 
                 let micon = staticon;
                 let status = a.status;
+
                 if(status==="0"){
                     micon = stopicon;
                 } else if(status ==="2"){
@@ -256,8 +274,7 @@ var  SYLLMap = function(optOptions){
                     "<b>类型编号</b>:"+ a.typecode + "<br>" +
                     "<b>类型名称</b>:" + a.typename + "<br>";
 
-
-                    marker.bindTooltip(title);
+                    marker.bindTooltip(title).openTooltip(title,L.latLng(a.loc));
 
                     marker.bindPopup(popupHtml);
 
@@ -266,8 +283,6 @@ var  SYLLMap = function(optOptions){
 
             map.addLayer(markerLayer);
         }
-
-        //searchControl.setLayer(markerLayer);
     };
 
     function setCluster(flag) {
@@ -280,11 +295,35 @@ var  SYLLMap = function(optOptions){
         renderStation();
     }
 
+    /**
+     * 导出图片
+     */
+    function exportMap(){
+        exportImage(id);
+    }
+
+    let sideControl = L.control.sideBySide(null,null);
+    function setSideBySide(flag){
+
+        if(flag){
+            sideControl.addTo(map);
+            sideControl.setLeftLayers(markerLayer);
+            sideControl.setRightLayers(null);
+            console.log("卷帘大将在此！")
+        } else {
+            sideControl.remove();
+            console.log("卷帘大将拜拜！")
+        }
+    }
+
     return{
         initialMap: initialMap,
-        addArea: addArea,
+        //addArea: addArea,
+        getOverLayers: getOverLayers,
         addStations: addStations,
         setCLuster: setCluster,
-        ToggleTooltip:ToggleTooltip
+        ToggleTooltip:ToggleTooltip,
+        exportMap: exportMap,
+        setSideBySide: setSideBySide
     }
 };

@@ -22,6 +22,14 @@
     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/search/leaflet-search.src.css">
     <script src="leaflet/js/lib/leaflet/plugins/search/leaflet-search.src.js" type="application/javascript"></script>
 
+    <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/measure/leaflet-measure.css"/>
+    <script src="leaflet/js/lib/leaflet/plugins/measure/leaflet-measure.js" type="application/javascript"></script>
+
+    <script src="leaflet/js/lib/leaflet/plugins/html2canvas/html2canvas.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/exportMap/exportMap.js" type="application/javascript"></script>
+
+    <script src="leaflet/js/lib/leaflet/plugins/sides/leaflet-side-by-side.js" type="application/javascript"></script>
+
     <script src="leaflet/js/basemap.js" type="application/javascript"></script>
     <script src="leaflet/js/syllmap.js" type="application/javascript"></script>
     <style type="text/css">
@@ -44,6 +52,8 @@
 </head>
 <input type="checkbox" id="chkcluster" value="cluster" title="cluster">聚合</input>
 <input type="checkbox" id="chktooltip" value="tooltip" title="cluster">标注</input>
+<input type="checkbox" id="chkScroll" value="Scroll" title="Scroll">卷帘</input>
+<button id="btnExport" type="button" value="printer">打印</button>
 
 <div id="divmap"></div>
 
@@ -54,9 +64,9 @@
 
         syllMap.initialMap();
 
-        syllMap.addArea();
-
-        syllMap.addStations();
+        document.getElementById("btnExport").addEventListener("click",function () {
+            syllMap.exportMap();
+        })
 
         document.getElementById("chkcluster").addEventListener("change",function () {
             let chkcluster = document.getElementById("chkcluster");
@@ -72,6 +82,14 @@
 
             syllMap.ToggleTooltip(chkShowTip.checked);
         });
+
+        document.getElementById("chkScroll").addEventListener("change",function () {
+
+            let chkScroll = document.getElementById("chkScroll");
+
+            syllMap.setSideBySide(chkScroll.checked);
+        });
+
 
 </script>
 </body>

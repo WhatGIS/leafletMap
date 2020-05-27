@@ -577,7 +577,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .leaflet-tooltip {
 	position: absolute;
 	padding: 6px;
-	background-color: rgba(222, 197, 136, 0.83);
+	background-color: rgba(245, 237, 213, 0.89);
 	border: 1px solid #999;
 	border-radius: 5px;
 	color: #397b53;
@@ -587,7 +587,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	-ms-user-select: none;
 	user-select: none;
 	pointer-events: none;
-	box-shadow: 0 2px 5px #33a5ffd4;
+	box-shadow: 0 2px 5px rgba(133, 178, 213, 0.83);
 	}
 .leaflet-tooltip.leaflet-clickable {
 	cursor: pointer;
