@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>二次供水</title>
+		<link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+		<link href="./css/css.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="./css/wui.min.css">
+		<!--<script src="js/jquery-1.8.2.min.js"></script>-->
+		<script type="text/javascript" src="js/chart/jquery.js"></script>
+		<script type="text/javascript" src="./js/date/angular.min.js"></script>
+		<script type="text/javascript" src="./js/date/wui-date.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="section">
+			<div class="header">
+				<div class="header-l"><a href="#" class="h-menu"><img src="img/menu.png"/></a></div>
+				<span class="h-logo"><img src="img/logo.png"/></span>
+				
+				<div class="header-r"><span class="head-r-16">2018-12-03 09:45:56</span><a href="#" class="h-more"><img src="img/more1.png"/></a></div>
+			</div>
+			<div class="nav-left box-shadow">
+				<div class="main-navli"><a href="index.html"><i><img src="img/ico11.png"/></i><span>首页</span></a></div>
+				<div class="main-navli on"><a href="sitemaps.html"><i><img src="img/ico12.png"/></i><span>站点运行统计</span></a></div>
+				<div class="nav-fir">
+					<!-- 地区选择 -->
+					<div class="s-lresadr"><p class="demo" id="J-demo2"></p><a href="javascript:" class="s-lmore"><img src="img/more.png"/></a></div>
+					<!-- 搜索 -->
+					<div class="nav-res">
+						<input type="text" placeholder="搜索" class="nav-resl" />
+						<input type="button" class="nav-resr" /> 
+					</div>
+					<!-- 站点数 -->
+					<div class="nav-text">
+						<p>站点总数：35</p>
+						<p>正常站点：35</p>
+						<p>告警站点：1</p>
+					</div>
+					<!-- 项目列表 -->
+					<div class="wrapper">				
+						<div class="content_1 content">
+							<ul class="con-ul">
+								<li><a href="#">金城镇思模村东站</a></li>
+								<li><a href="#">金城镇思模村西站</a></li>
+								<li><a href="#">金城镇小清培站</a></li>
+								<li><a href="#">金城镇西南圩站</a></li>
+								<li><a href="#">金城镇管庄西站</a></li>
+								<li><a href="#">金城镇管庄南站</a></li>
+								<li><a href="#">金城镇管庄东站</a></li>
+								<li><a href="#">金城镇毛家北站</a></li>
+								<li><a href="#">金城镇毛家南站</a></li>
+								<li><a href="#">金城镇沈史蔡村站</a></li>
+								<li><a href="#">金城镇刘庄站</a></li>
+								<li><a href="#">金城镇蒋庄站</a></li>
+								<li><a href="#">金城镇曹庄站</a></li>
+								<li><a href="#">金城镇白塔集镇站</a></li>
+								<li><a href="#">金城镇兆歧村东站</a></li>
+								<li><a href="#">金城镇兆歧村西站</a></li>
+								<li><a href="#">儒林镇前鲁塘站</a></li>
+								<li><a href="#">儒林镇双坝头站</a></li>
+								<li><a href="#">西城街道樊家边站</a></li>
+								<li><a href="#">指前镇东周站</a></li>
+								<li><a href="#">指前镇城头站</a></li>
+								<li><a href="#">指前镇上溪圩东站</a></li>
+								<li><a href="#">指前镇上溪圩西站</a></li>
+								<li><a href="#">指前镇西大埂西站</a></li>
+								<li><a href="#">指前镇西大埂东站</a></li>
+								<li><a href="#">指前镇庄阳站</a></li>
+								<li><a href="#">指前镇洮西集西站</a></li>
+								<li><a href="#">指前镇洮西集东站</a></li>
+								<li><a href="#">指前镇后渎西站</a></li>
+								<li><a href="#">指前镇后渎东站</a></li>
+								<li><a href="#">指前镇水西站</a></li>
+								<li><a href="#">指前镇后里站</a></li>
+								<li><a href="#">指前镇芦巷站</a></li>
+								<li><a href="#">指前镇高家圩站</a></li>
+								<li><a href="#">指前镇湖荡圩站</a></li>
+							</ul>	
+						</div>					 		
+					</div>
+				</div>
+			</div>
+			<!-- 详情 -->
+			<div class="main-section left224">
+				<div class="ecgs clearfix2">
+					<div class="ecgs-l fl">
+						<!-- 画面监控 -->
+						<div class="ecgs-fir box-shadow">
+							<div class="ecgs-fir-con">
+								<div class="ecgs-bg"><img src="img/bg2.jpg"/></div>
+								<img src="img/device13.png" class="device"/>
+								<div class="ecgs-tit"><h3 class="ecgs-tit-h3">杨庙供水站工艺流程图</h3><a href="#"  class="ecgs-tit-kz"><img src="img/ico5.png"/></a></div>
+								<div class="ecgs-txt">
+									<span class="ecgs-num1">2.29</span>
+									<span class="ecgs-num2">5.24</span>
+									<span class="ecgs-num3">5.24</span>
+									<span class="ecgs-num4">5.24</span>
+									<span class="ecgs-num5">3.87</span>
+									<span class="ecgs-num6c"><img src="img/pica.png"/></span>
+									<span class="ecgs-num7c"><img src="img/picb.gif"/></span>
+									<span class="ecgs-num8c"><img src="img/picc.png"/></span>
+									<span class="ecgs-num8cm" style="top:"><img src="img/picc.png"/></span>
+								</div>
+							</div>
+							<!-- 控制 -->
+							<div class="ecgs-kz hide">
+								<div class="ecgs-kz-tit"><h3 class="ecgs-kz-h3">远程控制</h3><a href="javascript:" class="ecgs-kz-close"><img src="img/close.png"/></a></div>
+								<div class="ecgs-kz-bar">
+									<h3>设置手/自动  </h3>
+									<p>开启后为自动模式</p>
+									<span class=" wu-kzhead-span pos1"><i class="wu-kzhead-i trana"></i></span>
+								</div>
+								<div class="ecgs-kz-div">
+									<table class="ecgs-kz-tab">
+										<tr class="ecgs-kz-tab-tit">
+											<th width="120">&nbsp;&nbsp;设备名称</th>
+											<th>频率设置</th>
+											<th width="60" align="right">启停 &nbsp; &nbsp; </th>
+										</tr>
+										<tr class="ecgs-kz-tr">
+											<td class="ecgs-kz-fir">1号泵</td>
+											<td class="ecgs-kz-sec"><input type="text" value="5789" /></td>
+											<td class="ecgs-kz-btn"><span class=" wu-kzhead-span pos2"><i class="wu-kzhead-i trana"></i></span></td>
+										</tr>
+										<tr class="ecgs-kz-tr">
+											<td class="ecgs-kz-fir">2号泵</td>
+											<td class="ecgs-kz-sec"><input type="text" value="5789" /></td>
+											<td class="ecgs-kz-btn"><span class=" wu-kzhead-span pos2"><i class="wu-kzhead-i trana"></i></span></td>
+										</tr>
+										<tr class="ecgs-kz-tr">
+											<td class="ecgs-kz-fir">3号泵</td>
+											<td class="ecgs-kz-sec"><input type="text" value="5789" /></td>
+											<td class="ecgs-kz-btn"><span class=" wu-kzhead-span pos2"><i class="wu-kzhead-i trana"></i></span></td>
+										</tr>
+										<tr class="ecgs-kz-tr">
+											<td class="ecgs-kz-fir">4号泵</td>
+											<td class="ecgs-kz-sec"><input type="text" value="5789" /></td>
+											<td class="ecgs-kz-btn"><span class=" wu-kzhead-span pos2"><i class="wu-kzhead-i trana"></i></span></td>
+										</tr>
+										<tr class="ecgs-kz-tr">
+											<td class="ecgs-kz-fir">5号泵</td>
+											<td class="ecgs-kz-sec"><input type="text" value="5789" /></td>
+											<td class="ecgs-kz-btn"><span class=" wu-kzhead-span pos2"><i class="wu-kzhead-i trana"></i></span></td>
+										</tr>
+									</table>
+									<div class="ecgs-kz-bot">
+										<button class="ecgs-kz-btnl">取消</button>
+										<button class="ecgs-kz-btnr">确定</button>
+									</div>
+								</div>
+								<!-- 运行状态结束 -->
+							</div>
+							<!-- 运行状态 -->
+							<div class="ecgs-zt wb">
+								<div class="ecgs-ztli wbw">
+									<div class="ecgs-ztlicon">
+										<div class="ecgs-ztlibg">
+											<div class="ecgs-ztlitxt">
+												<div class="ecgs-ztleft"><img src="img/ico6.png"/><p>一号泵</p></div>
+												<div class="ecgs-ztright">
+													<h3>运行中</h3>
+													<p>124</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="ecgs-ztli wbw">
+									<div class="ecgs-ztlicon">
+										<div class="ecgs-ztlibg">
+											<div class="ecgs-ztlitxt">
+												<div class="ecgs-ztleft"><img src="img/ico6.png"/><p>二号泵</p></div>
+												<div class="ecgs-ztright">
+													<h3>运行中</h3>
+													<p>124</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<!-- 实时数据 -->
+						<div class="ecgs-ss box-shadow">
+							<div class="body-title"><h3>实时数据</h3></div>
+							<div class="ecgs-sscon clearfix2">
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								<div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+								
+							</div>
+						</div>
+					</div>
+					<!-- 右侧 -->
+					<div class="ecgs-r fl">
+						<!-- 视频监控 -->
+						<div class="ecgs-v box-shadow">
+							<div class="ecgs-vcon">
+								<div class="ecgs-vpic"><img src="img/pic1.jpg"/></div>		
+								<div class="ecgs-vli">
+									<span class="on"><img src="img/pic1.jpg"/></span>
+									<span><img src="img/pic1.jpg"/></span>
+								</div>
+							</div>
+							
+							<div class="wu-video-tit">
+								<p class="wu-video-titp">金城镇思模村东站1</p>
+								<a href="javascript:" class="wu-video-tita"><img src="img/ico32.png"/></a>
+							</div>
+							<!-- 弹窗控制按钮 -->
+							<div class="wu-video-btn hide">
+								<a href="javascript:" class="wu-video-btnli"><img src="img/ico34.png"/></a>
+								<a href="javascript:" class="wu-video-btnli"><img src="img/ico35.png"/></a>
+								<a href="javascript:" class="wu-video-btnli"><img src="img/ico36.png"/></a>
+								<a href="javascript:" class="wu-video-btnli"><img src="img/ico37.png"/></a>
+								<a href="javascript:" class="wu-video-btnli"><img src="img/ico38.png"/></a>
+								<a href="javascript:" class="wu-video-btnli"><img src="img/ico39.png"/></a>
+							</div>
+						</div>
+						<!-- 表格 -->
+						<div>
+							<!-- 表格左侧 -->
+							<div class="ecgs-bgl fl box-shadow" onmouseover='start1()'  onmouseout='out1()'>
+								<!-- 水质监测 -->
+								<div class="img-slide1">
+									<div class="main-body-title">水质监测统计<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+									<!-- 查询时间 -->
+									<div class="wu-cx hide">
+										<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+										<div class="wu-cxbody">
+											<div class="wu-cx-con clearfix2">
+												<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date9" btns="{'ok':'确定','now':'此刻'}" ng-model="date9"></wui-date></div>
+												<span class="wu-cx-conc fl">-</span>
+												<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date10" btns="{'ok':'确定','now':'此刻'}" ng-model="date10"></wui-date></div>
+											</div>
+											<div class="wu-cx-btn">
+												<button class="wu-cx-btnl">清空</button>
+												<button class="wu-cx-btnr">确定</button>
+											</div>
+											
+										</div>
+									</div>
+									<div id="container7" style="height: 200px;"></div>
+									<div class="main-szjc-rate">
+										<span class="main-szjc-rate1">94%</span>
+										<span class="main-szjc-rate2">6%</span>
+										<span class="main-szjc-rate3">0</span>
+									</div>
+									<div class="main-szjc-num">
+										<span class="main-szjc-num1">103</span>
+										<span class="main-szjc-num1">1</span>
+										<span class="main-szjc-num1">0</span>
+									</div>
+									<div class="main-szjc-tit">
+										<h3 class="main-szjc-titl">统计批次</h3>
+										<span class="main-szjc-titr">104</span>
+									</div>
+								</div>
+								<!-- 水质监测结束 -->
+								<!-- 设备生命周期 -->
+								<div class="img-slide1">
+									<div class="main-body-title">设备生命周期<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+									<!-- 查询时间 -->
+									<div class="wu-cx hide">
+										<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+										<div class="wu-cxbody">
+											<div class="wu-cx-con clearfix2">
+												<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date13" btns="{'ok':'确定','now':'此刻'}" ng-model="date13"></wui-date></div>
+												<span class="wu-cx-conc fl">-</span>
+												<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date14" btns="{'ok':'确定','now':'此刻'}" ng-model="date14"></wui-date></div>
+											</div>
+											<div class="wu-cx-btn">
+												<button class="wu-cx-btnl">清空</button>
+												<button class="wu-cx-btnr">确定</button>
+											</div>
+											
+										</div>
+									</div>
+									<div class="main-sbsmzq">
+										<div class="main-sbsmzq-li">
+											<div class="main-sbsmzq-text clearfix2"><span class="main-sbsmzq-textl fl">设备一：良好 </span><span class="main-sbsmzq-textr fr">93.26%</span></div>
+											<div class="main-sbsmzq-con"><span style="width: 93.26%;" class="main-blue"></span></div>
+										</div>
+										<div class="main-sbsmzq-li">
+											<div class="main-sbsmzq-text clearfix2"><span class="main-sbsmzq-textl fl">设备二：一般 </span><span class="main-sbsmzq-textr fr">6.74%</span></div>
+											<div class="main-sbsmzq-con"><span style="width: 6.74%;" class="main-orange"></span></div>
+										</div>
+										<div class="main-sbsmzq-li">
+											<div class="main-sbsmzq-text clearfix2"><span class="main-sbsmzq-textl fl">设备二：一般 </span><span class="main-sbsmzq-textr fr">6.74%</span></div>
+											<div class="main-sbsmzq-con"><span style="width: 6.74%;" class="main-orange"></span></div>
+										</div>
+										<div class="main-sbsmzq-li">
+											<div class="main-sbsmzq-text clearfix2"><span class="main-sbsmzq-textl fl">设备三：谨慎 </span><span class="main-sbsmzq-textr fr">0%</span></div>
+											<div class="main-sbsmzq-con"><span style="width: 0%;" class="main-red"></span></div>
+										</div>
+									</div>
+								</div>
+								<!-- 设备生命周期结束 -->
+								<!-- 告警统计 -->										
+								<div class="img-slide1">
+									<div class="main-body-title">告警统计<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+									<!-- 查询时间 -->
+									<div class="wu-cx hide">
+										<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+										<div class="wu-cxbody">
+											<div class="wu-cx-con clearfix2">
+												<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date7" btns="{'ok':'确定','now':'此刻'}" ng-model="date7"></wui-date></div>
+												<span class="wu-cx-conc fl">-</span>
+												<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date8" btns="{'ok':'确定','now':'此刻'}" ng-model="date8"></wui-date></div>
+											</div>
+											<div class="wu-cx-btn">
+												<button class="wu-cx-btnl">清空</button>
+												<button class="wu-cx-btnr">确定</button>
+											</div>
+											
+										</div>
+									</div>
+									<div class="main-wntj">
+										<div class="main-wntj-title">
+											<div class="main-wntj-titlel fl">22</div>
+											<div class="main-wntj-titler fr">单位：次</div>
+										</div>
+										<div id="container6" style="height: 260px;"></div>
+									</div>
+								</div>
+								<!--告警统计结束 -->
+								<!-- 流量统计 -->
+								<div class="img-slide1">
+									<div class="main-body-title">流量统计<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+									<!-- 查询时间 -->
+									<div class="wu-cx hide">
+										<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+										<div class="wu-cxbody">
+											<div class="wu-cx-con clearfix2">
+												<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date11" btns="{'ok':'确定','now':'此刻'}" ng-model="date11"></wui-date></div>
+												<span class="wu-cx-conc fl">-</span>
+												<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date12" btns="{'ok':'确定','now':'此刻'}" ng-model="date12"></wui-date></div>
+											</div>
+											<div class="wu-cx-btn">
+												<button class="wu-cx-btnl">清空</button>
+												<button class="wu-cx-btnr">确定</button>
+											</div>
+											
+										</div>
+									</div>
+									<div class="main-clltj">
+										<div class="main-wntj-title">
+											<div class="main-wntj-titlel fl">364</div>
+											<div class="main-wntj-titler fr">单位：吨</div>
+										</div>
+										<div id="container8" style="height: 220px;"></div>
+									</div>
+								</div>
+								<!-- 处理量统计结束 -->
+								<!-- 切换按钮 -->
+								<div class="slide-btn1"><a href="javascript:"></a></div>
+								
+							</div>
+							<!-- 表格右侧 -->
+							<div class="ecgs-bgr fr box-shadow" onmouseover='start()'  onmouseout='out()'>
+								<!-- 能耗统计 -->
+											<!-- div中四个角 -->
+											<div class="main-map-line">
+												<span class="line-top"></span>
+												<span class="line-right"></span>
+												<span class="line-bottom"></span>
+												<span class="line-left"></span>
+											</div>
+											<!-- div中四个角结束 -->
+											<!-- 能耗统计 -->
+											<div class="img-slide">
+												<div class="main-body-title">能耗统计<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+												<!-- 查询时间 -->
+												<div class="wu-cx hide">
+													<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+													<div class="wu-cxbody">
+														<div class="wu-cx-con clearfix2">
+															<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date15" btns="{'ok':'确定','now':'此刻'}" ng-model="date15"></wui-date></div>
+															<span class="wu-cx-conc fl">-</span>
+															<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date16" btns="{'ok':'确定','now':'此刻'}" ng-model="date16"></wui-date></div>
+														</div>
+														<div class="wu-cx-btn">
+															<button class="wu-cx-btnl">清空</button>
+															<button class="wu-cx-btnr">确定</button>
+														</div>
+														
+													</div>
+												</div>
+												<div class="wave clearfix2">
+													<div class="wave-l fl">
+														<div class="wave-con"><h3 class="wave-h3">平均值</h3><p class="wave-p">32</p></div>
+														<canvas id="pool" data-progress="50"></canvas>
+													</div>
+													<div class="wu-nhtj-r fr">
+														<div class="wu-nhtj-rli">
+															<p>最大能耗值</p><span>45</span>
+														</div>
+														<div class="wu-nhtj-rli">
+															<p>最小能耗值</p><span>25</span>
+														</div>
+													</div>												
+												</div>
+											</div>
+											<!-- 能耗统计结束 -->
+											<!-- 消耗统计 -->
+											<div class="img-slide">
+												<div class="main-body-title">消耗统计<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+												<!-- 查询时间 -->
+												<div class="wu-cx hide">
+													<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+													<div class="wu-cxbody">
+														<div class="wu-cx-con clearfix2">
+															<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date1" btns="{'ok':'确定','now':'此刻'}" ng-model="date1"></wui-date></div>
+															<span class="wu-cx-conc fl">-</span>
+															<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date2" btns="{'ok':'确定','now':'此刻'}" ng-model="date2"></wui-date></div>
+														</div>
+														<div class="wu-cx-btn">
+															<button class="wu-cx-btnl">清空</button>
+															<button class="wu-cx-btnr">确定</button>
+														</div>
+														
+													</div>
+												</div>
+												<!-- 查询时间结束 -->
+												<div class="wu-xhtj">
+													<div class="wu-xhtj-tit">
+														<a href="javascript:" class="on">设备消耗</a> &nbsp; | &nbsp;
+														<a href="javascript:">用料消耗</a>
+													</div>
+													<div class="wu-xhtj-con">
+														<table class="wu-xhtj-tal" border="1">
+															<tr>
+																<td>TOP1</td>
+																<td>风机</td>
+																<td>个</td>
+																<td width="60">35</td>
+															</tr>
+															<tr>
+																<td>TOP2</td>
+																<td>污泥回流泵</td>
+																<td>个</td>
+																<td>24</td>
+															</tr>
+															<tr>
+																<td>TOP3</td>
+																<td>提升泵</td>
+																<td>个</td>
+																<td>21</td>
+															</tr>
+															<tr>
+																<td>TOP4</td>
+																<td>曝气</td>
+																<td>个</td>
+																<td>17</td>
+															</tr>
+															<tr>
+																<td>TOP5</td>
+																<td>硝化液回流泵</td>
+																<td>个</td>
+																<td>12</td>
+															</tr>
+														</table>
+														<div class="wu-page">
+															<a href="javascript:" class="wu-pagel"><</a>
+															<span class="wu-pagenum">1/1</span>
+															<a href="javascript:" class="wu-pager">></a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- 消耗统计结束 -->			
+											<!-- 用电量统计 -->
+											<div class="img-slide">
+												<div class="main-body-title">用电量统计<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+												<!-- 查询时间 -->
+												<div class="wu-cx hide">
+													<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+													<div class="wu-cxbody">
+														<div class="wu-cx-con clearfix2">
+															<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date3" btns="{'ok':'确定','now':'此刻'}" ng-model="date3"></wui-date></div>
+															<span class="wu-cx-conc fl">-</span>
+															<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date4" btns="{'ok':'确定','now':'此刻'}" ng-model="date4"></wui-date></div>
+														</div>
+														<div class="wu-cx-btn">
+															<button class="wu-cx-btnl">清空</button>
+															<button class="wu-cx-btnr">确定</button>
+														</div>
+														
+													</div>
+												</div>
+												<div id="container3" style="height: 270px;"></div>
+											</div>
+											<!-- 出勤统计结束 -->
+											<!-- 运维统计 -->
+											<div class="img-slide">
+												<div class="main-body-title">运维统计<a href="javascript:" class="wu-date"><img src="img/ico33.png" /></a></div>
+												<!-- 查询时间 -->
+												<div class="wu-cx hide">
+													<div class="wu-cx-h3">查询时间<a href="javascript:" class="wu-cx-close"><img src="img/close.png"/></a></div>
+													<div class="wu-cxbody">
+														<div class="wu-cx-con clearfix2">
+															<div class="wu-cx-conl fl"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date5" btns="{'ok':'确定','now':'此刻'}" ng-model="date5"></wui-date></div>
+															<span class="wu-cx-conc fl">-</span>
+															<div class="wu-cx-conr fr"><wui-date format="yyyy-mm-dd" placeholder="请选择日期" id="date6" btns="{'ok':'确定','now':'此刻'}" ng-model="date6"></wui-date></div>
+														</div>
+														<div class="wu-cx-btn">
+															<button class="wu-cx-btnl">清空</button>
+															<button class="wu-cx-btnr">确定</button>
+														</div>
+														
+													</div>
+												</div>
+												<div id="container4" style="height: 270px;"></div>
+											</div>
+											<div class="slide-btn"><a href="javascript:"></a></div>
+											<!-- 运维统计结束 -->
+								
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="./js/echarts.min.js"></script>
+		<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+		<script src="js/common.js"></script>
+		<script src="js/detail.js"></script>
+		<script>
+			var app = angular.module('app',["wui.date"]);
+			// 切换
+			$(".wu-kzhead-span").click(function(){
+				$(this).children("i").toggleClass("movea");
+				$(this).toggleClass("wu-kz-stop");
+			})
+			
+			
+			// 项目控制
+			$(".ecgs-tit-kz").click(function(){
+				$(".ecgs-kz").toggle()
+			})
+			$(".ecgs-kz-close").click(function(){
+				$(".ecgs-kz").slideUp()
+			})
+			
+			$(".ecgs-kz-btnl").click(function(){
+				$(".wu-kz-status").slideDown();
+				setTimeout(function(){$(".wu-kz-status").slideUp();},2000);
+				$(".ecgs-kz").slideUp()
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,361 @@
+{
+    "低柜区": {
+        "List": [
+            {
+                "MeterId": 1,
+                "P_Field": "F1",
+                "P_Tag": null,
+                "P_Text": "液位A",
+                "P_Unit": "m",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E1+E2),16)), 0)",
+                "P_Index": 1,
+                "ExpVal": "0.4214336"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "F17",
+                "P_Tag": null,
+                "P_Text": "液位B",
+                "P_Unit": "m",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E3+E4),16)), 0)",
+                "P_Index": 2,
+                "ExpVal": "0.4019492"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "F18",
+                "P_Tag": null,
+                "P_Text": "设定压力",
+                "P_Unit": "MPa",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E5+E6),16)), 0)",
+                "P_Index": 3,
+                "ExpVal": "0.57"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "F2",
+                "P_Tag": null,
+                "P_Text": "实际压力",
+                "P_Unit": "MPa",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E7+E8),16)), 0)",
+                "P_Index": 4,
+                "ExpVal": "0.564514"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "F3",
+                "P_Tag": null,
+                "P_Text": "变频频率",
+                "P_Unit": "Hz",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E9+E10),16)), 0)",
+                "P_Index": 5,
+                "ExpVal": "36.39648"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "F19",
+                "P_Tag": null,
+                "P_Text": "手工频率",
+                "P_Unit": "Hz",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E11+E12),16)), 0)",
+                "P_Index": 6,
+                "ExpVal": "25"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "S1",
+                "P_Tag": null,
+                "P_Text": "泵1状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E13))",
+                "P_Index": 7,
+                "ExpVal": "3"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "I1",
+                "P_Tag": null,
+                "P_Text": "泵2状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E14))",
+                "P_Index": 8,
+                "ExpVal": "0"
+            },
+            {
+                "MeterId": 1,
+                "P_Field": "I2",
+                "P_Tag": null,
+                "P_Text": "泵3状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E15))",
+                "P_Index": 9,
+                "ExpVal": "0"
+            }
+        ],
+        "Page": 0,
+        "Flag": 1,
+        "Msg": "Success"
+    },
+
+    "中柜区":{
+        "List": [
+            {
+                "MeterId": 3,
+                "P_Field": "F1",
+                "P_Tag": null,
+                "P_Text": "液位A",
+                "P_Unit": "m",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E1+E2),16)), 0)",
+                "P_Index": 1,
+                "ExpVal": "0"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "F17",
+                "P_Tag": null,
+                "P_Text": "液位B",
+                "P_Unit": "m",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E3+E4),16)), 0)",
+                "P_Index": 2,
+                "ExpVal": "0"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "F18",
+                "P_Tag": null,
+                "P_Text": "设定压力",
+                "P_Unit": "MPa",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E5+E6),16)), 0)",
+                "P_Index": 3,
+                "ExpVal": "0.8"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "F2",
+                "P_Tag": null,
+                "P_Text": "实际压力",
+                "P_Unit": "MPa",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E7+E8),16)), 0)",
+                "P_Index": 4,
+                "ExpVal": "0.8180625"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "F3",
+                "P_Tag": null,
+                "P_Text": "变频频率",
+                "P_Unit": "Hz",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E9+E10),16)), 0)",
+                "P_Index": 5,
+                "ExpVal": "34.05469"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "F19",
+                "P_Tag": null,
+                "P_Text": "手工频率",
+                "P_Unit": "Hz",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E11+E12),16)), 0)",
+                "P_Index": 6,
+                "ExpVal": "25"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "S1",
+                "P_Tag": null,
+                "P_Text": "泵1状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E13))",
+                "P_Index": 7,
+                "ExpVal": "3"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "I1",
+                "P_Tag": null,
+                "P_Text": "泵2状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E14))",
+                "P_Index": 8,
+                "ExpVal": "1"
+            },
+            {
+                "MeterId": 3,
+                "P_Field": "I2",
+                "P_Tag": null,
+                "P_Text": "泵3状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E15))",
+                "P_Index": 9,
+                "ExpVal": "0"
+            }
+        ],
+        "Page": 0,
+        "Flag": 1,
+        "Msg": "Success"
+    },
+    "高柜区": {
+        "List": [
+            {
+                "MeterId": 4,
+                "P_Field": "F1",
+                "P_Tag": null,
+                "P_Text": "液位A",
+                "P_Unit": "m",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E1+E2),16)), 0)",
+                "P_Index": 1,
+                "ExpVal": "0"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "F17",
+                "P_Tag": null,
+                "P_Text": "液位B",
+                "P_Unit": "m",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E3+E4),16)), 0)",
+                "P_Index": 2,
+                "ExpVal": "0"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "F18",
+                "P_Tag": null,
+                "P_Text": "设定压力",
+                "P_Unit": "MPa",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E5+E6),16)), 0)",
+                "P_Index": 3,
+                "ExpVal": "1.1"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "F2",
+                "P_Tag": null,
+                "P_Text": "实际压力",
+                "P_Unit": "MPa",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E7+E8),16)), 0)",
+                "P_Index": 4,
+                "ExpVal": "1.096875"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "F3",
+                "P_Tag": null,
+                "P_Text": "变频频率",
+                "P_Unit": "Hz",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E9+E10),16)), 0)",
+                "P_Index": 5,
+                "ExpVal": "49.125"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "F19",
+                "P_Tag": null,
+                "P_Text": "手工频率",
+                "P_Unit": "Hz",
+                "P_Exp": "BitConverter.ToSingle(BitConverter.GetBytes(Convert.ToUInt32(HexReverse(E11+E12),16)), 0)",
+                "P_Index": 6,
+                "ExpVal": "25"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "S1",
+                "P_Tag": null,
+                "P_Text": "泵1状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E13))",
+                "P_Index": 7,
+                "ExpVal": "0"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "I1",
+                "P_Tag": null,
+                "P_Text": "泵2状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E14))",
+                "P_Index": 8,
+                "ExpVal": "3"
+            },
+            {
+                "MeterId": 4,
+                "P_Field": "I2",
+                "P_Tag": null,
+                "P_Text": "泵3状态",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E15))",
+                "P_Index": 9,
+                "ExpVal": "0"
+            }
+        ],
+        "Page": 0,
+        "Flag": 1,
+        "Msg": "Success"
+    },
+    "水质": {
+        "List": [
+            {
+                "MeterId": 2,
+                "P_Field": "F1",
+                "P_Tag": null,
+                "P_Text": "余氯",
+                "P_Unit": "ppm",
+                "P_Exp": "HexToInt2(HexReverse(E1))/1000.0Override(0.5,0.8,1)",
+                "P_Index": 1,
+                "ExpVal": "0.6"
+            },
+            {
+                "MeterId": 2,
+                "P_Field": "F18",
+                "P_Tag": null,
+                "P_Text": "PH值",
+                "P_Unit": null,
+                "P_Exp": "HexToInt2(HexReverse(E4))/1000.0",
+                "P_Index": 3,
+                "ExpVal": "7.53"
+            },
+            {
+                "MeterId": 2,
+                "P_Field": "F2",
+                "P_Tag": null,
+                "P_Text": "温度",
+                "P_Unit": "℃",
+                "P_Exp": "HexToInt2(HexReverse(E6))/100.0",
+                "P_Index": 4,
+                "ExpVal": "25.03"
+            },
+            {
+                "MeterId": 2,
+                "P_Field": "F3",
+                "P_Tag": null,
+                "P_Text": "浊度",
+                "P_Unit": "NTU",
+                "P_Exp": "HexToInt2(HexReverse(E7))/1000.0",
+                "P_Index": 5,
+                "ExpVal": "1.178"
+            },
+            {
+                "MeterId": 2,
+                "P_Field": "F19",
+                "P_Tag": null,
+                "P_Text": "电导",
+                "P_Unit": "us/cm",
+                "P_Exp": "HexToInt2(HexReverse(E8))",
+                "P_Index": 6,
+                "ExpVal": "9"
+            },
+            {
+                "MeterId": 2,
+                "P_Field": "F20",
+                "P_Tag": null,
+                "P_Text": "压力",
+                "P_Unit": "bar",
+                "P_Exp": "HexToInt2(HexReverse(E9))/100.0",
+                "P_Index": 7,
+                "ExpVal": "5.91"
+            }
+        ],
+        "Page": 0,
+        "Flag": 1,
+        "Msg": "Success"
+    }
+}

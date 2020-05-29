@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>二次供水</title>
+		<link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+		<link href="./css/css.css" rel="stylesheet" type="text/css">
+		<!--<script src="js/jquery-1.8.2.min.js"></script>-->
+		<script type="text/javascript" src="js/chart/jquery.js"></script> 
+		<script type="text/javascript" src="js/chart/highcharts.js"></script>
+	</head>
+	<body>
+		<div class="section">
+			<div class="header">
+				<div class="header-l"><a href="#" class="h-menu"><img src="img/menu.png"/></a></div>
+				<span class="h-logo"><img src="img/logo.png"/></span>
+				
+				<div class="header-r"><span class="head-r-16">2018-12-03 09:45:56</span><a href="#" class="h-more"><img src="img/more1.png"/></a></div>
+			</div>
+			<div class="nav-left box-shadow">
+				<div class="main-navli"><a href="index.html"><i><img src="img/ico11.png"/></i><span>首页</span></a></div>
+				<div class="main-navli on"><a href="sitemaps.html"><i><img src="img/ico12.png"/></i><span>站点运行统计</span></a></div>
+				<div class="nav-fir">
+					<!-- 地区选择 -->
+					<div class="s-lresadr"><p class="demo" id="J-demo2"></p><a href="javascript:" class="s-lmore"><img src="img/more.png"/></a></div>
+					<!-- 搜索 -->
+					<div class="nav-res">
+						<input type="text" placeholder="搜索" class="nav-resl" />
+						<input type="button" class="nav-resr" /> 
+					</div>
+					<!-- 站点数 -->
+					<div class="nav-text">
+						<p>站点总数：35</p>
+						<p>正常站点：35</p>
+						<p>告警站点：1</p>
+					</div>
+					<!-- 项目列表 -->
+					<div class="wrapper">				
+						<div class="content_1 content">
+							<ul class="con-ul">
+								<li><a href="#">金城镇思模村东站</a></li>
+								<li><a href="#">金城镇思模村西站</a></li>
+								<li><a href="#">金城镇小清培站</a></li>
+								<li><a href="#">金城镇西南圩站</a></li>
+								<li><a href="#">金城镇管庄西站</a></li>
+								<li><a href="#">金城镇管庄南站</a></li>
+								<li><a href="#">金城镇管庄东站</a></li>
+								<li><a href="#">金城镇毛家北站</a></li>
+								<li><a href="#">金城镇毛家南站</a></li>
+								<li><a href="#">金城镇沈史蔡村站</a></li>
+								<li><a href="#">金城镇刘庄站</a></li>
+								<li><a href="#">金城镇蒋庄站</a></li>
+								<li><a href="#">金城镇曹庄站</a></li>
+								<li><a href="#">金城镇白塔集镇站</a></li>
+								<li><a href="#">金城镇兆歧村东站</a></li>
+								<li><a href="#">金城镇兆歧村西站</a></li>
+								<li><a href="#">儒林镇前鲁塘站</a></li>
+								<li><a href="#">儒林镇双坝头站</a></li>
+								<li><a href="#">西城街道樊家边站</a></li>
+								<li><a href="#">指前镇东周站</a></li>
+								<li><a href="#">指前镇城头站</a></li>
+								<li><a href="#">指前镇上溪圩东站</a></li>
+								<li><a href="#">指前镇上溪圩西站</a></li>
+								<li><a href="#">指前镇西大埂西站</a></li>
+								<li><a href="#">指前镇西大埂东站</a></li>
+								<li><a href="#">指前镇庄阳站</a></li>
+								<li><a href="#">指前镇洮西集西站</a></li>
+								<li><a href="#">指前镇洮西集东站</a></li>
+								<li><a href="#">指前镇后渎西站</a></li>
+								<li><a href="#">指前镇后渎东站</a></li>
+								<li><a href="#">指前镇水西站</a></li>
+								<li><a href="#">指前镇后里站</a></li>
+								<li><a href="#">指前镇芦巷站</a></li>
+								<li><a href="#">指前镇高家圩站</a></li>
+								<li><a href="#">指前镇湖荡圩站</a></li>
+							</ul>	
+						</div>					 		
+					</div>
+				</div>
+			</div>
+			<!-- 地图 -->
+			<div class="main-section left224">
+				<div class="site-map box-shadow">
+					<!-- div中四个角 -->
+					<div class="main-map-line">
+						<span class="line-top"></span>
+						<span class="line-right"></span>
+						<span class="line-bottom"></span>
+						<span class="line-left"></span>
+					</div>
+					<!-- div中四个角结束 -->
+					<!-- 地图控件 -->
+					<div id="allmap" class="box-shadow"></div>
+					<div class="map-ico clearfix2">
+						<span class="map-icoli fl"><img src="img/ico1.png"/> 供水项目</span>
+						<span class="map-icoli fr"><img src="img/ico2.png"/> 供水告警</span>
+						<span class="map-icoli fl"><img src="img/ico3.png"/> 员工</span>
+						<span class="map-icoli fr"><img src="img/ico4.png"/> 车辆</span>
+					</div>
+					
+					<!-- 检索 -->
+					<div class="main-res">
+						<span class="main-resli fl on">全部</span>
+						<span class="main-resli fl">正常</span>
+						<span class="main-resli fl">告警</span>
+					</div>
+					<!-- 弹窗 -->
+					<div class="main-zdxq hide">
+						<h3 class="main-zdxq-h3">站点详情<span class="main-zdxq-close"><img src="./img/ico10.png"</span></h3>
+						<div class="main-zdxq-body">
+							<div class="main-zdxq-body-li"><i>站点名称：</i><span id="name"></span></div>
+							<div class="main-zdxq-body-li"><i>有无告警：</i><span id="warn"></span></div>
+							<div class="main-zdxq-body-li"><i>所属管理：</i><span id="manage"></span></div>
+							<div class="main-zdxq-body-li"><i>站点地址：</i><span id="adr"></span></div>
+						</div>
+						<div class="main-zdxq-btn">
+							<button class="main-zdxq-btnl">取消</button>
+							<button class="main-zdxq-btnr">进入站点</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=2M4it3bcnz406RQvXYFe4pPfVDx1hGkE"></script>
+		<script type="text/javascript" src="js/mapjson.js"></script>
+		<script type="text/javascript" src="js/sitemap.js"></script>
+		<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+		
+			<script src="js/common.js"></script>
+	</body>
+</html>

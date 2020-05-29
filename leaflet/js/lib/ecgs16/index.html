@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>二次供水 </title>
+		<link href="./css/css.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div class="section">
+			<div class="header">
+				<div class="header-l"><a href="#" class="h-menu"><img src="img/menu.png"/></a></div>
+				<span class="h-logo"><img src="img/logo.png"/></span>
+				<div class="header-r"><span class="h-time">2019年12月25日  16:22:07  星期三</span><a href="#" class="h-more"><img src="img/more1.png"/></a></div>
+				<div class="nav-add hide">
+					<ul class="nav-addul">
+						<li class="nav-addli"><a href="#" class="active"><span class="nav-add1 trana"></span><p>综合大屏</p></a></li>
+						<li class="nav-addli"><a href="#"><span class="nav-add2 trana"></span><p>污水中心</p></a></li>
+						<li class="nav-addli"><a href="#"><span class="nav-add3 trana"></span><p>供水中心</p></a></li>
+						<li class="nav-addli"><a href="#"><span class="nav-add4 trana"></span><p>切换比例</p></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="body clearfix2">
+				<!-- 左侧部分 -->
+				<div class="body-l fl">
+					<!-- 流量统计 -->
+					<div class="body-l-div">
+						<div class="body-l-con box-shadow">
+							<div class="main-map-line">
+								<span class="line-top"></span>
+								<span class="line-right"></span>
+								<span class="line-bottom"></span>
+								<span class="line-left"></span>
+							</div>
+							<div class="body-title"><h3>流量统计</h3></div>
+							<div class="body-lltj">
+								<div class="body-lltj-h3"><span>35687</span><font class="fr">单位：吨</font></div>
+								<!--图表 -->
+								<div id="container" style="height:200px"></div>
+								
+							</div>
+						</div>
+					</div>
+					<!-- 流量统计结束 -->
+					<!-- 巡检统计 -->
+					<div class="body-l-div">
+						<div class="body-l-con box-shadow">
+							<div class="main-map-line">
+								<span class="line-top"></span>
+								<span class="line-right"></span>
+								<span class="line-bottom"></span>
+								<span class="line-left"></span>
+							</div>
+							<div class="body-title"><h3>巡检统计</h3></div>
+							<div class="main-xjtj">
+								<div id="container1" style="height: 230px;"></div>
+								<div class="xjtj-num"><p>总数</p><span>47386</span></div>
+								<div class="xjtj-text">
+									<div class="xjtj-text-li"><font class="xjtj-text-font">254</font></div>
+									<div class="xjtj-text-li"><font class="xjtj-text-font">147</font></div>
+									<div class="xjtj-text-li"><font class="xjtj-text-font">86</font></div>
+									<div class="xjtj-text-li"><font class="xjtj-text-font">34</font></div>
+									<div class="xjtj-text-li"><font class="xjtj-text-font">67</font></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 巡检统计结束 -->
+					<!-- 水质监测统计 -->
+					<div class="body-l-div">
+						<div class="body-l-con box-shadow">
+							<div class="main-map-line">
+								<span class="line-top"></span>
+								<span class="line-right"></span>
+								<span class="line-bottom"></span>
+								<span class="line-left"></span>
+							</div>
+							<div class="body-title"><h3>水质监测统计</h3></div>
+							<div id="container2" style="height: 270px;"></div>
+						</div>
+					</div>
+					<!-- 水质监测统计结束 -->
+				</div>
+				<!-- 中间部分 -->
+				<div class="body-c fl">
+					<div class="body-c-div">
+						<!-- 地图 -->
+						<div class="body-c-con box-shadow">
+							<div class="main-map-line">
+								<span class="line-top"></span>
+								<span class="line-right"></span>
+								<span class="line-bottom"></span>
+								<span class="line-left"></span>
+							</div>
+							<div class="body-map">
+								<div id="allmap"></div>
+							</div>
+						</div>
+						<!-- 项目统计 -->
+						<div class="body-c-xm">
+							<div class="body-c-xmdiv clearfix2">
+								<div class="body-c-xmli fl">
+									<div class="body-c-xmlibg">
+										<div class="body-c-xmlicon box-shadow">
+											<div class="main-map-line">
+												<span class="line-top"></span>
+												<span class="line-right"></span>
+												<span class="line-bottom"></span>
+												<span class="line-left"></span>
+											</div>
+											<h3 class="body-c-xmli-h3">项目总数</h3>
+											<p class="body-c-xmli-p">3574</p>
+										</div>
+									</div>
+								</div>
+								<div class="body-c-xmli fl">
+									<div class="body-c-xmlibg">
+										<div class="body-c-xmlicon box-shadow">
+											<div class="main-map-line">
+												<span class="line-top"></span>
+												<span class="line-right"></span>
+												<span class="line-bottom"></span>
+												<span class="line-left"></span>
+											</div>
+											<h3 class="body-c-xmli-h3">正常</h3>
+											<p class="body-c-xmli-p">3572</p>
+										</div>
+									</div>
+								</div>
+								<div class="body-c-xmli fl">
+									<div class="body-c-xmlibg">
+										<div class="body-c-xmlicon box-shadow">
+											<div class="main-map-line">
+												<span class="line-top"></span>
+												<span class="line-right"></span>
+												<span class="line-bottom"></span>
+												<span class="line-left"></span>
+											</div>
+											<h3 class="body-c-xmli-h3">告警</h3>
+											<p class="body-c-xmli-p">2</p>
+										</div>
+									</div>
+								</div>
+								<div class="body-c-xmli fl">
+									<div class="body-c-xmlibg">
+										<div class="body-c-xmlicon box-shadow">
+											<div class="main-map-line">
+												<span class="line-top"></span>
+												<span class="line-right"></span>
+												<span class="line-bottom"></span>
+												<span class="line-left"></span>
+											</div>
+											<h3 class="body-c-xmli-h3">良好率</h3>
+											<p class="body-c-xmli-p">99.8%</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 项目统计结束 -->
+					</div>
+				</div>
+				<!-- 中间部分结束 -->
+				<!-- 右侧部分 -->
+				<div class="body-l fl">
+					<!-- 告警统计 -->
+					<div class="body-l-div">
+						<div class="body-l-con box-shadow">
+							<div class="main-map-line">
+								<span class="line-top"></span>
+								<span class="line-right"></span>
+								<span class="line-bottom"></span>
+								<span class="line-left"></span>
+							</div>
+							<div class="body-title"><h3>告警统计</h3></div>
+							<div id="container3" style="height: 260px;"></div>
+						</div>
+					</div>
+					<!-- 告警统计结束 -->
+					<!-- 消耗统计 -->
+					<div class="body-l-div">
+						<div class="body-l-con box-shadow">
+							<div class="main-map-line">
+								<span class="line-top"></span>
+								<span class="line-right"></span>
+								<span class="line-bottom"></span>
+								<span class="line-left"></span>
+							</div>
+							<div class="body-title"><h3>消耗统计</h3></div>
+							<div class="wu-xhtj">
+								<div class="wu-xhtj-con">
+									<table class="wu-xhtj-tal" border="1">
+										<tbody><tr>
+											<td>TOP1</td>
+											<td>皮带524</td>
+											<td>个</td>
+											<td width="60" align="right">35</td>
+										</tr>
+										<tr>
+											<td>TOP2</td>
+											<td>螺丝</td>
+											<td>个</td>
+											<td align="right">24</td>
+										</tr>
+										<tr>
+											<td>TOP3</td>
+											<td>铆钉</td>
+											<td>个</td>
+											<td align="right">21</td>
+										</tr>
+										<tr>
+											<td>TOP4</td>
+											<td>水泵</td>
+											<td>个</td>
+											<td align="right">17</td>
+										</tr>
+										<tr>
+											<td>TOP5</td>
+											<td>plc</td>
+											<td>个</td>
+											<td align="right">12</td>
+										</tr>
+										<tr>
+											<td>TOP6</td>
+											<td>plc</td>
+											<td>个</td>
+											<td align="right">12</td>
+										</tr>
+									</tbody></table>
+									<div class="wu-page">
+										<a href="javascript:" class="wu-pagel">&lt;</a>
+										<span class="wu-pagenum">1/1</span>
+										<a href="javascript:" class="wu-pager">&gt;</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 消耗统计结束 -->
+					<!-- 能耗统计 -->
+					<div class="body-l-div">
+						<div class="body-l-con box-shadow">
+							<div class="main-map-line">
+								<span class="line-top"></span>
+								<span class="line-right"></span>
+								<span class="line-bottom"></span>
+								<span class="line-left"></span>
+							</div>
+							<div class="body-title"><h3>能耗统计</h3></div>
+							<div class="wave clearfix2">
+								<div class="wave-l fl">
+									<div class="wave-con"><h3 class="wave-h3">平均值</h3><p class="wave-p">32</p></div>
+									<canvas id="pool" data-progress="50"></canvas>
+								</div>
+								<div class="wu-nhtj-r fr">
+									<div class="wu-nhtj-rli">
+										<p>最大能耗值</p><span>45</span>
+									</div>
+									<div class="wu-nhtj-rli">
+										<p>最小能耗值</p><span>25</span>
+									</div>
+								</div>								
+							</div>
+						</div>
+					</div>
+					<!-- 能耗统计结束 -->
+				</div>
+				<!-- 右侧部分结束 -->
+			</div>
+		</div>
+		<script type="text/javascript" src="js/echarts.min.js"></script>
+		<script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=2M4it3bcnz406RQvXYFe4pPfVDx1hGkE"></script>
+		<script src="js/jquery1-9-0.js"></script>
+		<script type="text/javascript" src="js/mapjson.js"></script>
+		<!-- <script type="text/javascript" src="js/sitemap.js"></script> -->
+	    <script type="text/javascript" src="js/index.js"></script>
+		<script>
+			$(".h-more").click(function(){
+				$(".nav-add").toggle();
+			})
+		</script>
+	</body>
+</html>

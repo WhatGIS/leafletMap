@@ -744,19 +744,46 @@ L.Control.Search = L.Control.extend({
 		this._handleAutoresize();
 	},
 
-	searchText: function(text) {
-		var code = text.charCodeAt(text.length);
+	// searchText: function(text) {
+	//
+	// 	var code = text.charCodeAt(text.length);
+	//
+	// 	this._input.value = text;
+	//
+	// 	this._input.style.display = 'block';
+	// 	L.DomUtil.addClass(this._container, 'search-exp');
+	//
+	// 	this._autoTypeTmp = false;
+	//
+	// 	this._handleKeypress({keyCode: code});
+	// },
 
-		this._input.value = text;
 
-		this._input.style.display = 'block';
-		L.DomUtil.addClass(this._container, 'search-exp');
+	searchText: function(inputText,sourceData) {
 
-		this._autoTypeTmp = false;
+		var self = this;
 
-		this._handleKeypress({keyCode: code});
+		sourceData.forEach(function (item,index) {
+
+			if(item.title ==inputText){
+				let loc = item.loc;
+				if(loc===false)
+					this.showAlert();
+				else
+				{
+					self.showLocation(loc, inputText);
+					self.fire('search:locationfound', {
+						latlng: loc,
+						text: inputText,
+						layer: loc.layer ? loc.layer : null
+					});
+				}
+			}
+
+		})
+
 	},
-	
+
 	_fillRecordsCache: function() {
 
 		var self = this,
@@ -928,7 +955,7 @@ L.Control.Search.Marker = L.Marker.extend({
 		icon: new L.Icon.Default(),
 		animate: true,
 		circle: {
-			radius: 15,
+			radius: 20,
 			weight: 3,
 			color: '#e03',
 			stroke: true,

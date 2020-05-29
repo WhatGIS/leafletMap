@@ -1,31 +1,43 @@
 /**
- * 所有引用的 plugins，不要随意更新到官网或者 github上的新版本，有些 plugins 已进行修改定制。
+ * 所有引用的 plugins，不要随意更新到官网或者 github上的新版本，有些 plugins 已进行修改定制。包括 leaflet.js leaflet.css
  * zhangjie.20200527
  */
 
 var  SYLLMap = function(optOptions){
 
     let options = optOptions || {};
-    let id = options.id;
-    let map = null;
+    let id = options.mapId;//地图组件divId
+    let treeid = options.treeId //树形组件divId
 
-    let areaLayer = new L.featureGroup();
+    let map = null; //地图全局变量
 
     let gatherCluster = false;//是否聚合的标识
 
     let showAllTip = false;//是否显示全部的标注
 
-    let markerLayer = new L.layerGroup();
+    let areaLayer = new L.featureGroup();//区域图层
+    let markerLayer = new L.layerGroup();//站点图层
+    let overLayer;  //业务数据图层
 
-    let overLayer;
+    let searchControl; //查询组件
 
-    let searchControl;
+    let dataStations = []; //已经处理好的站点数据
 
-    let printer;
+    let sidebar = null;//侧边栏组件，作为全局变量是因为导出图片时，如果侧边栏是展开的，会影响左边控件的位置。
 
-    let dataStations = []; //站点数据
+    function localData(text, callResponse)
+    {
+        //here can use custom criteria or merge data from multiple layers
+        callResponse(dataStations);
+        return {	//called to stop previous requests on map move
+            abort: function() {
+                console.log('aborted request:'+ text);
+            }
+        };
+    }
+
     /**
-     * 初始化区域
+     * 初始化地图
      */
     function initialMap(){
 
@@ -54,16 +66,7 @@ var  SYLLMap = function(optOptions){
 
             L.control.mousePosition().addTo(map);
 
-            function localData(text, callResponse)
-            {
-                //here can use custom criteria or merge data from multiple layers
-                callResponse(dataStations);
-                return {	//called to stop previous requests on map move
-                    abort: function() {
-                        console.log('aborted request:'+ text);
-                    }
-                };
-            }
+
 
             searchControl = new L.Control.Search({
                 position:"topleft",
@@ -87,6 +90,8 @@ var  SYLLMap = function(optOptions){
                 completedColor: '#f16303'
             });
             measureControl.addTo(map);
+
+            sidebar = L.control.sidebar("sidebar").addTo(map);
         };
     };
 
@@ -126,6 +131,9 @@ var  SYLLMap = function(optOptions){
         }).addTo(areaLayer);
     };
 
+    /**
+     * 获取区域的数据
+     */
     function getDivisions(){
         areaLayer.clearLayers();
         //var conditions={"conditions":[{"Field":"cid","Operate":"=","Value":GCtx.customer._id,"Relation":"and"},{"Field":"pid","Operate":"=","Value":"5d2185abbdb7fc00b8a36366","Relation":"and"}],"order":[{"Field":"w","Type":false}],"size":999,"index":1}
@@ -141,7 +149,6 @@ var  SYLLMap = function(optOptions){
                     }
                 });
             }
-            //areaLayer.addTo(map);
         });
     };
 
@@ -149,11 +156,6 @@ var  SYLLMap = function(optOptions){
      * 添加站点
      */
     function addStations() {
-        //markerLayer.clearLayers();
-        // 5d2185abbdb7fc00b8a36366 合肥线上
-        // uniecgs803594e03duniecgs 本地
-        //var conditions={"conditions":[{"Field":"cid","Operate":"=","Value":GCtx.customer._id,"Relation":"and"},{"Field":"pid","Operate":"=","Value":"5d2185abbdb7fc00b8a36366","Relation":"and"}],"order":[{"Field":"w","Type":false}],"size":999,"index":1}
-        //Service.getdivisions(conditions,function(rep){
         $.getJSON("/leafletMap/leaflet/data/HFStations.json",function(stationJson){
             let data = stationJson.RECORDS;
             console.log(data);
@@ -161,48 +163,191 @@ var  SYLLMap = function(optOptions){
 
                 let data1 = reSizeData(data)
 
-                renderStation(data1);
+                //renderStation(data1);
+
+                addAllStations(data1)
+                    .then(addTreeView);
+
+
             }
+
             areaLayer.addTo(map);
         });
     };
 
-    // {
-    //     "stationid": "5d3023b2bdb7fc1ddc70a525",
-    //     "stationnum": "2300911161",
-    //     "typecode": "2",
-    //     "typename": "高层泵房",
-    //     "name": "包河皖东小区一区",
-    //     "x": "117.307229",
-    //     "y": "31.827682",
-    //     "area": "",
-    //     "status": "0"
-    // },
+    function addTreeView() {
+        if (!hasSetTree)
+            setTreeView();
+    }
+
+    function addAllStations(data1){
+        let dfd = $.Deferred();
+        setTimeout(function () {
+            renderStation(data1)
+            dfd.resolve();
+        }, 500);
+
+        return dfd.promise();
+    }
+
+    let hasSetTree = false;
 
     /**
-     * 重新整理数据
+     * 重新整理数据 ，主要是将xy整理为loc。
      * @param data
      * @returns {[]}
      */
-    function reSizeData(data){
-        dataStations = [];
-        for (let i = 0; i < data.length; i++) {
-            let a = data[i];
-            let newData = {};
-            newData.title = a.title;
-            newData.stationId = a.stationid;
-            newData.stationnum = a.stationnum;
-            newData.typecode = a.typecode;
-            newData.typename = a.typename;
-            newData.area = a.area;
-            newData.status = a.status;
-            newData.loc = [parseFloat(a.y),parseFloat(a.x)];
+    function reSizeData(data) {
 
-            dataStations.push(newData);
+            dataStations = [];
+
+            for (let i = 0; i < data.length; i++) {
+                let a = data[i];
+                let newData = {};
+                newData.title = a.areatitle;
+                newData.stationId = a.stationid;
+                newData.stationnum = a.stationnum;
+                newData.typecode = a.typecode;
+                newData.typetitle = a.typetitle;
+                newData.suotitle = a.suotitle;
+                newData.status = a.status;
+                newData.loc = [parseFloat(a.y), parseFloat(a.x)];
+
+                if (!hasSetTree)
+                    setTreeData(newData);
+
+                dataStations.push(newData);
+            }
+
+            console.log(rootTree);
+
+
+    }
+
+    let rootTree = [];
+
+    let filterTree = [];
+
+    /**
+     * 设置树形图
+     */
+    function setTreeView() {
+
+            let tree = layui.tree, layer = layui.layer, util = layui.util;
+
+            function checkStationVisible(filterData,flag){
+
+                try{
+
+                    if(flag==="add"){
+                        if(filterData.children){
+                            filterData.children.forEach(function(child,index){
+
+                                if(child.title) {
+                                    if (filterTree.indexOf(child.title) == -1)
+                                        filterTree.push(child.title);
+                                }
+                            });
+                        }else {
+                            if(filterTree.indexOf(filterData.title)==-1)
+                            filterTree.push(filterData.title);
+                        }
+                    } else if(flag=="remove"){
+                        if(filterData.children){
+                            filterData.children.forEach(function(child,index){
+                                if(child.title){
+                                   let idx = filterTree.indexOf(child.title);
+                                   if(idx>-1){
+                                       filterTree.splice(idx,1);
+                                   }
+                                }
+                            });
+                        }else {
+
+                            let idx = filterTree.indexOf(filterData.title);
+                            if(idx>-1){
+                                filterTree.splice(idx,1);
+                            }
+                        }
+                    }
+                }catch{
+
+                }
+                finally {
+                    console.log(filterTree);
+                    renderStation();
+                }
+            }
+
+            tree.render({
+                elem: "#" + treeid,
+                data: rootTree,
+                id: "treeView",
+                showCheckbox: true,
+                accordion: true,
+                click: function (obj) {
+                    let clickData = obj.data;
+                    searchControl.searchText(clickData.title,dataStations);
+
+                    console.log("状态:" + obj.state + " <br> 节点数据:" + JSON.stringify(clickData));
+                },
+                oncheck: function(obj){
+                    console.log("节点数据:"+obj.data); //得到当前点击的节点数据
+                    console.log("节点状态:"+obj.checked); //得到当前节点的展开状态：open、close、normal
+                    console.log("节点元素:"+obj.elem); //得到当前节点元素
+
+                    //console.log(dataStations);//维护站点visible
+                    if(hasSetTree)
+                    checkStationVisible(obj.data ,obj.checked?"remove":"add");
+                }
+            });
+
+            hasSetTree = true;
+
+            console.log("addAllTree!");
+
+    }
+
+    function setTreeData(data) {
+
+        let childItem = {};
+        childItem.title = data.title;
+        //childItem.id = data.stationId;
+        //childItem.spread = true;
+        childItem.checked = false;
+
+        let hasAdd = false;
+
+        if(rootTree&&rootTree.length>0){
+            for(let i=0;i<rootTree.length;i++){
+                let rootItem = rootTree[i];
+                if(rootItem.title===data.suotitle){
+                    rootItem.children.push(childItem);
+                    hasAdd = true;
+                    break;
+                }
+            }
+        }
+
+        if(!hasAdd){
+            let rootItem = {};
+
+            rootItem.title = data.suotitle;
+            rootItem.id = data.suotitle;
+            rootItem.checked = true;
+            rootItem.children = [];
+            rootItem.children.push(childItem);
+
+            rootTree.push(rootItem);
         }
     }
 
+    /**
+     * 添加站点
+     */
     function renderStation () {
+
+        console.log("RenderAllStations!");
 
         let LeafIcon = L.Icon.extend({
             options: {
@@ -226,26 +371,25 @@ var  SYLLMap = function(optOptions){
             for (let i = 0; i < dataStations.length; i++) {
                 let a = dataStations[i];
                 let title = a.title;
-                let micon = staticon;
-                let status = a.status;
-                if(status==="0"){
-                    micon = stopicon;
-                } else if(status ==="2"){
-                    micon = warnicon;
-                }
 
-                let marker = L.marker(L.latLng(a.loc), {icon:micon});
-                var popupHtml = "<b>站点名称</b>:"+ title + "-" + a.typename + "<br>" +
-                    "<b>站点ID</b>:" + a.stationId + "<br>"+
-                    "<b>站点编号</b>:" + a.stationnum  + "<br>"+
-                    "<b>类型编号</b>:"+ a.typecode + "<br>" +
-                    "<b>类型名称</b>:" + a.typename + "<br>";
+                let index = filterTree.indexOf(title);
+                if(index==-1){  //不在过滤范围内的才渲染，filterTree是树形图的过滤数组
+                    let micon = staticon;
+                    let status = a.status;
+                    if(status==="0"){
+                        micon = stopicon;
+                    } else if(status ==="2"){
+                        micon = warnicon;
+                    }
+
+                    let marker = L.marker(L.latLng(a.loc), {icon:micon});
+
+                    let popTab = getPopupContent(a,map);
+                    marker.bindPopup(popTab);
 
                     marker.bindTooltip(title);
-
-                    marker.bindPopup(popupHtml);
-
-                markerLayer.addLayer(marker);
+                    markerLayer.addLayer(marker);
+                }
             }
 
             map.addLayer(markerLayer);
@@ -258,37 +402,46 @@ var  SYLLMap = function(optOptions){
                 let a = dataStations[i];
                 let title = a.title;
 
-                let micon = staticon;
-                let status = a.status;
+                let index = filterTree.indexOf(title);
+                if(index==-1) {  //不在过滤范围内的才渲染，filterTree是树形图的过滤数组
 
-                if(status==="0"){
-                    micon = stopicon;
-                } else if(status ==="2"){
-                    micon = warnicon;
+                    let micon = staticon;
+                    let status = a.status;
+
+                    if (status === "0") {
+                        micon = stopicon;
+                    } else if (status === "2") {
+                        micon = warnicon;
+                    }
+
+                    let marker = L.marker(L.latLng(a.loc), {icon: micon});
+
+                    let popTab = getPopupContent(a,map);
+                    marker.bindPopup(popTab);
+
+                    marker.bindTooltip(title);
+                    markerLayer.addLayer(marker);
                 }
-
-                let marker = L.marker(L.latLng(a.loc), {icon:micon});
-                var popupHtml = "<b>站点名称</b>:"+ title + "-" + a.typename +"<br>" +
-                    "<b>站点ID</b>:" + a.stationId + "<br>"+
-                    "<b>站点编号</b>:" + a.stationnum  + "<br>"+
-                    "<b>类型编号</b>:"+ a.typecode + "<br>" +
-                    "<b>类型名称</b>:" + a.typename + "<br>";
-
-                    marker.bindTooltip(title).openTooltip(title,L.latLng(a.loc));
-
-                    marker.bindPopup(popupHtml);
-
-                markerLayer.addLayer(marker);
             }
 
             map.addLayer(markerLayer);
         }
     };
 
+
+    /**
+     * 设置聚合的标识符
+     * @param flag
+     */
     function setCluster(flag) {
         gatherCluster = flag;
     }
 
+    /**
+     * 设置标注的标识符
+     * @param flag
+     * @constructor
+     */
     function ToggleTooltip(flag){
         showAllTip = flag;
 
@@ -299,9 +452,16 @@ var  SYLLMap = function(optOptions){
      * 导出图片
      */
     function exportMap(){
+        if(sidebar){
+            sidebar.close();
+        }
         exportImage(id);
     }
 
+    /**
+     * 卷帘控件
+     * 先初始化为全局变量，勾选时再进行显示处理
+     */
     let sideControl = L.control.sideBySide(null,null);
     function setSideBySide(flag){
 
@@ -314,11 +474,10 @@ var  SYLLMap = function(optOptions){
             sideControl.remove();
             console.log("卷帘大将拜拜！")
         }
-    }
+    };
 
     return{
         initialMap: initialMap,
-        //addArea: addArea,
         getOverLayers: getOverLayers,
         addStations: addStations,
         setCLuster: setCluster,
