@@ -29,11 +29,8 @@ let bengFangDic = {};//泵房数据  三个机柜加上水质，分别对应了�
 
 function getDeviceGYHtml(title) {
 
-    var deviceData = document.getElementById("deviceData"); //olindic
+    var deviceData = document.getElementById("divGongYiItem"); //获取Item的div
     deviceData.innerHTML = "";
-
-    var olindic = document.getElementById("olindic");
-    olindic.innerHTML = "";
 
     var i = 0;
 
@@ -48,22 +45,17 @@ function getDeviceGYHtml(title) {
    
                 var divItem = document.createElement("div");
 
-                var oldinItem = document.createElement("li");
-                oldinItem.setAttribute("data-target", "#contentDiv");
-                oldinItem.setAttribute("data-slide-to", i.toString());
 
                 if (i == 0) {
-                    divItem.setAttribute("class", "carousel-item ecgs-fir box-shadow active");
-                    oldinItem.setAttribute("class", "active");
+                    divItem.setAttribute("class", "ecgs-fir box-shadow");
 
                 } else {
-                    divItem.setAttribute("class", "carousel-item ecgs-fir box-shadow");
+                    divItem.setAttribute("class", "ecgs-fir box-shadow");
                 }
 
                 getBengFangDom(devName, dataList, divItem);
 
                 deviceData.appendChild(divItem);
-                olindic.appendChild(oldinItem);
                 i++;
 
             } else {

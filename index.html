@@ -10,8 +10,8 @@
     <script src="leaflet/js/lib/layui/layui.all.js" type="application/javascript"></script>
     <link rel="stylesheet" href="leaflet/js/lib/ecgs16/css/css.css">
 
-    <link rel="stylesheet" href="leaflet/js/lib/bootstrap/css/bootstrap.css">
-    <script src="leaflet/js/lib/bootstrap/js/bootstrap.js" type="application/javascript"></script>
+<!--    <link rel="stylesheet" href="leaflet/js/lib/bootstrap/css/bootstrap.css">-->
+<!--    <script src="leaflet/js/lib/bootstrap/js/bootstrap.js" type="application/javascript"></script>-->
 
     <link rel="stylesheet" href="leaflet/js/lib/leaflet/leaflet.css" />
     <script src="leaflet/js/lib/leaflet/leaflet-src.js" type="application/javascript"></script>
@@ -76,7 +76,7 @@
             <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
             <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
             <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
-            <li><a href="https://github.com/Turbo87/sidebar-v2" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
+            <li><a href="https://github.com/googlegis/leftletmap" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
         </ul>
 
         <ul role="tablist">
@@ -118,7 +118,6 @@
 </div>
 <div id="divmap" class="sidebar-map"></div>
 
-
 <script>
 
         let syllMap = new SYLLMap({
@@ -156,55 +155,33 @@
 
 </script>
 </body>
-<div id="divTab"  class="layui.tab layui-tab-card" style="display: none;"></div>
-
-<!-- Modal -->
-<div class="modal fade" id="ModalDataCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="width:880px;background-color:rgba(0,0,0,0)">
-            <div id="modalBody" class="modal-body">
-                <div class="ecgs-l">
-                    <div id="contentDiv" class="carousel slide carousel-fade" data-ride="carousel">
-                        <ol id="olindic" class="carousel-indicators">
-                            <li data-target="#contentDiv" data-slide-to="0" class="active"></li>
-                            <li data-target="#contentDiv" data-slide-to="1"></li>
-                            <li data-target="#contentDiv" data-slide-to="2"></li>
-                        </ol>
-                        <div id="deviceData" class="carousel-inner">
-                            <div id="deviceData1" class="carousel-item  ecgs-fir box-shadow active">
-                                <img src="leaflet/js/lib/ecgs16/img/device16.png" class="d-block w-100" alt="...">
-                            </div>
-                            <div id="deviceData2" class="carousel-item  ecgs-fir box-shadow">
-                                <img src="leaflet/js/lib/ecgs16/img/device16.png" class="d-block w-100" alt="...">
-                            </div>
-                            <div id="deviceData3" class="carousel-item  ecgs-fir box-shadow">
-                                <img src="leaflet/js/lib/ecgs16/img/device16.png" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#contentDiv" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#contentDiv" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                    <div id="shuizhiDiv" class="ecgs-ss box-shadow">
-                        <div class="body-title"><h3 id="shuizhiTitle">圆梦苑泵房水质监测</h3></div>
-                        <div id="szdiv"  class="ecgs-sscon clearfix2">
-                            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
-                            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
-                            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
-                            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
-                            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
-                            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
-
-                        </div>
-                    </div>
-                </div>
-
+<!--实时数据弹出窗口-->
+<div id="divTab"  class="layui-tab layui-tab-card" style="display: none;"></div>
+<!--工艺图弹出窗口 -->
+<div id="divGongYi" class="ecgs-l" style="display: none;">
+    <div id="divGy" class="layui-carousel">
+        <div carousel-item id="divGongYiItem" >
+            <div id="deviceData1">
+                <img src="leaflet/js/lib/ecgs16/img/device16.png" class="d-block w-100" alt="...">
             </div>
+            <div id="deviceData2" class="ecgs-fir box-shadow">
+                <img src="leaflet/js/lib/ecgs16/img/device16.png" class="d-block w-100" alt="...">
+            </div>
+            <div id="deviceData3" class="ecgs-fir box-shadow">
+                <img src="leaflet/js/lib/ecgs16/img/device16.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+    <div id="shuizhiDiv" class="ecgs-ss box-shadow">
+        <div class="body-title"><h3 id="shuizhiTitle">圆梦苑泵房水质监测</h3></div>
+        <div id="szdiv"  class="ecgs-sscon clearfix2">
+            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+            <div class="ecgs-ssli fl"><div class="ecgs-sstxt"><div class="ecgs-sstab"><p>提升泵1频率</p><span>0</span></div></div></div>
+
         </div>
     </div>
 </div>

@@ -51,6 +51,23 @@ function openStationData(title){
 
     divTab.appendChild(divContent);
 
+    layui.use('element',function () {
+        let element = layui.element;
+
+        element.on('tab(divTab)', function(data){
+            //location.hash = 'Tab选项卡='+ this.getAttribute('lay-id');
+            console.log(this,data);
+        });
+
+        element.on('nav(test)',function (elem){
+            console.log(elem);
+        });
+
+        element.on('collapse(test)',function (data) {
+            console.log(data);
+        });
+    });
+
     layui.layer.open({
         title:title,
         type: 1,
@@ -66,16 +83,17 @@ function openStationGongyi(title){
 
 function openStationCamera(title,llmap) {
     console.log("摄像头:"+ title);
-    let videoUrls = [
-        'https://www.mapbox.com/bites/00188/patricia_nasa.webm',
-        'https://www.mapbox.com/bites/00188/patricia_nasa.mp4'
-    ];
+    //iframe层-多媒体
 
-    let bounds = L.latLngBounds([[ 31.80, 116.97], [ 31.86, 117.10]]);
-
-    var videoOverlay = L.videoOverlay( videoUrls, bounds, {
-        opacity: 0.8
-    }).addTo(llmap);
+    layer.open({
+        type: 2,
+        title: title,
+        area: ['630px', '360px'],
+        shade: false,
+        //closeBtn: 0,
+        //shadeClose: true,
+        content: '//player.youku.com/embed/XMjY3MzgzODg0'
+    });
 }
 
 function openStationPanorama(title) {
