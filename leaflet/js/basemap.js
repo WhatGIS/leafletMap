@@ -26,7 +26,7 @@ var terrianm = L.tileLayer.chinaProvider('TianDiTu.Terrain.Map',{
 var terraina = L.tileLayer.chinaProvider('TianDiTu.Terrain.Annotion',{
     maxZoom: 18,
     minZoom: 5
-})
+});
 
 var TDTNormal = L.layerGroup([normalm, normala]);
 var TDTImage = L.layerGroup([imgm, imga]);
@@ -138,9 +138,9 @@ var serverGroup = L.layerGroup([serverLayer]);
 
 //要显示的地图组
 var baseLayers = {
-    "天地图": TDTNormal,
-    "天地图影像": TDTImage,
-    "天地图混合": TDTTerrain,
+    "天地图矢量图": TDTNormal,
+    "天地图影像图": TDTImage,
+    //"天地图混地形图": TDTTerrain,
 
     // "高德地图": GaodeNormal,
     // "高德影像": GaodeImage,

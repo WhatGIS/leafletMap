@@ -41,6 +41,17 @@
     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/sidebar/leaflet-sidebar.css">
     <script src="leaflet/js/lib/leaflet/plugins/sidebar/leaflet-sidebar.js" type="application/javascript"></script>
 
+    <script src="leaflet/js/lib/vr/three.min.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/vr/src/sphoords.js"></script>
+    <script src="leaflet/js/lib/vr/src/PhotoSphereViewer.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/vr/src/PSVNavBar.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/vr/src/PSVNavBarButton.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/vr/vr.js" type="application/javascript"></script>
+
+    <script src="leaflet/js/lib/echart/dist/echarts-en.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/echart/echarts-leaflet.js" type="application/javascript"></script>
+    <script src="leaflet/js/echartMap.js" type="application/javascript"></script>
+
     <script src="leaflet/js/basemap.js" type="application/javascript"></script>
     <script src="leaflet/js/devAPI.js" type="application/javascript"></script>
     <script src="leaflet/js/getgongyi.js" type="application/javascript"></script>
@@ -88,7 +99,7 @@
     <div class="sidebar-content">
         <div class="sidebar-pane" id="home">
             <h1 class="sidebar-header">
-                地图
+                站点
                 <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
             </h1>
             <div style="padding: 5px;">
@@ -104,7 +115,10 @@
         </div>
 
         <div class="sidebar-pane" id="profile">
-            <h1 class="sidebar-header">站点<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            <h1 class="sidebar-header">巡检<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            <div style="padding: 5px;">
+                <input type="checkbox" id="chkChart" value="Chart" title="Chart">专题图</input>
+            </div>
         </div>
 
         <div class="sidebar-pane" id="messages">
@@ -153,6 +167,13 @@
             syllMap.setSideBySide(chkScroll.checked);
         });
 
+
+        document.getElementById("chkChart").addEventListener("change",function () {
+            let chkChart = document.getElementById("chkChart");
+            if(chkChart.checked)
+                setEchartMap(syllMap.getMap());
+        })
+
 </script>
 </body>
 <!--实时数据弹出窗口-->
@@ -185,5 +206,7 @@
         </div>
     </div>
 </div>
+
+<div id="vrcontainer" style="display: none;"></div>
 
 </html>

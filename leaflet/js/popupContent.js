@@ -85,14 +85,17 @@ function openStationCamera(title,llmap) {
     console.log("摄像头:"+ title);
     //iframe层-多媒体
 
+    loadVrJpg("vrcontainer");
+
     layer.open({
-        type: 2,
+        type: 1,
         title: title,
-        area: ['630px', '360px'],
+        area: ['800px','550px'],
         shade: false,
+        content: $('#vrcontainer')
         //closeBtn: 0,
         //shadeClose: true,
-        content: '//player.youku.com/embed/XMjY3MzgzODg0'
+        //content: '//player.youku.com/embed/XMjY3MzgzODg0'
     });
 }
 
@@ -141,7 +144,7 @@ function getPopupContent(a,llmap) {
 
     let iData = document.createElement("i");
     iData.setAttribute("id","btnData");
-    iData.setAttribute("class","fa fa-podcast fa-2x");
+    iData.setAttribute("class","fa fa-bar-chart fa-2x");
     iData.setAttribute("style","padding-right:15px;");
     iData.setAttribute("aria-hidden","true");
     iData.title ="实时数据";

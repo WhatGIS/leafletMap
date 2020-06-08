@@ -476,6 +476,10 @@ var  SYLLMap = function(optOptions){
         }
     };
 
+    function getMap() {
+        return map;
+    }
+
     return{
         initialMap: initialMap,
         getOverLayers: getOverLayers,
@@ -483,6 +487,7 @@ var  SYLLMap = function(optOptions){
         setCLuster: setCluster,
         ToggleTooltip:ToggleTooltip,
         exportMap: exportMap,
-        setSideBySide: setSideBySide
+        setSideBySide: setSideBySide,
+        getMap: getMap
     }
 };
