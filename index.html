@@ -48,9 +48,11 @@
     <script src="leaflet/js/lib/vr/src/PSVNavBarButton.js" type="application/javascript"></script>
     <script src="leaflet/js/lib/vr/vr.js" type="application/javascript"></script>
 
-    <script src="leaflet/js/lib/echart/dist/echarts-en.js" type="application/javascript"></script>
-    <script src="leaflet/js/lib/echart/echarts-leaflet.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/echart/echarts.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/echart/leaflet-echarts.js" type="application/javascript"></script>
     <script src="leaflet/js/echartMap.js" type="application/javascript"></script>
+
+    <script src="leaflet/js/lib/leaflet/plugins/slider/leaflet-timeline-slider.js" type="application/javascript"></script>
 
     <script src="leaflet/js/basemap.js" type="application/javascript"></script>
     <script src="leaflet/js/devAPI.js" type="application/javascript"></script>
@@ -85,9 +87,9 @@
     <div class="sidebar-tabs">
         <ul role="tablist">
             <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-            <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+            <li><a href="#profile" role="tab"><i class="fa fa-area-chart"></i></a></li>
             <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
-            <li><a href="https://github.com/googlegis/leftletmap" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
+            <li><a href="https://github.com/googlegis/leafletmap" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
         </ul>
 
         <ul role="tablist">
@@ -117,7 +119,7 @@
         <div class="sidebar-pane" id="profile">
             <h1 class="sidebar-header">巡检<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
             <div style="padding: 5px;">
-                <input type="checkbox" id="chkChart" value="Chart" title="Chart">专题图</input>
+                <input type="checkbox" id="chkChart" value="Chart" title="泵房瞬时流量专题图">泵房瞬时流量专题图</input>
             </div>
         </div>
 
@@ -167,12 +169,12 @@
             syllMap.setSideBySide(chkScroll.checked);
         });
 
-
         document.getElementById("chkChart").addEventListener("change",function () {
             let chkChart = document.getElementById("chkChart");
-            if(chkChart.checked)
-                setEchartMap(syllMap.getMap());
-        })
+            let title = chkChart.title;
+            syllMap.setSlider(chkChart.checked,title);
+
+        });
 
 </script>
 </body>

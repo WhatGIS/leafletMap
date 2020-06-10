@@ -144,7 +144,7 @@ function getPopupContent(a,llmap) {
 
     let iData = document.createElement("i");
     iData.setAttribute("id","btnData");
-    iData.setAttribute("class","fa fa-bar-chart fa-2x");
+    iData.setAttribute("class","fa fa-wifi fa-2x");
     iData.setAttribute("style","padding-right:15px;");
     iData.setAttribute("aria-hidden","true");
     iData.title ="实时数据";

@@ -16,9 +16,9 @@ var  SYLLMap = function(optOptions){
     let showAllTip = false;//是否显示全部的标注
 
     let areaLayer = new L.featureGroup();//区域图层
-    let markerLayer = new L.layerGroup();//站点图层
-    let overLayer;  //业务数据图层
+    let markerLayer = L.layerGroup(null,{pane:"markerPane"});
 
+    let layerControl;
     let searchControl; //查询组件
 
     let dataStations = []; //已经处理好的站点数据
@@ -51,22 +51,24 @@ var  SYLLMap = function(optOptions){
                 attributionControl: false
             });
 
+            let overLayer ={};
+
+            layerControl = L.control.layers(baseLayers, overLayer);
+
+            layerControl.addTo(map);
+
+            console.log(layerControl);
+
             getOverLayers();
 
-            overLayer ={
-                "区域" : areaLayer,
-                "站点": markerLayer
-            }
-
-            L.control.layers(baseLayers, overLayer).addTo(map);
             L.control.zoom({
                 zoomInTitle: '放大',
                 zoomOutTitle: '缩小'
             }).addTo(map);
 
+
+
             L.control.mousePosition().addTo(map);
-
-
 
             searchControl = new L.Control.Search({
                 position:"topleft",
@@ -96,8 +98,9 @@ var  SYLLMap = function(optOptions){
     };
 
     function getOverLayers(){
-        addStations();
+        console.log(layerControl);
         addArea();
+        addStations();
         //return [areaLayer,markerLayer];
         //
     }
@@ -106,6 +109,7 @@ var  SYLLMap = function(optOptions){
      * 添加区域
      */
     function addArea(){
+        console.log(layerControl);
         getDivisions();
     };
 
@@ -139,6 +143,8 @@ var  SYLLMap = function(optOptions){
         //var conditions={"conditions":[{"Field":"cid","Operate":"=","Value":GCtx.customer._id,"Relation":"and"},{"Field":"pid","Operate":"=","Value":"5d2185abbdb7fc00b8a36366","Relation":"and"}],"order":[{"Field":"w","Type":false}],"size":999,"index":1}
         //Service.getdivisions(conditions,function(rep){
 
+        console.log(layerControl);
+
         $.getJSON("/leafletMap/leaflet/data/area.json",function(areaJson){
             var rows = areaJson.Response.rows;
             console.log(rows);
@@ -148,6 +154,9 @@ var  SYLLMap = function(optOptions){
                         drawDivision(ele.area,ele.color)
                     }
                 });
+
+                areaLayer.addTo(map);
+                layerControl.addOverlay(areaLayer,"区域");
             }
         });
     };
@@ -156,22 +165,18 @@ var  SYLLMap = function(optOptions){
      * 添加站点
      */
     function addStations() {
+
         $.getJSON("/leafletMap/leaflet/data/HFStations.json",function(stationJson){
+
             let data = stationJson.RECORDS;
             console.log(data);
             if(data.length>0){
 
                 let data1 = reSizeData(data)
 
-                //renderStation(data1);
-
                 addAllStations(data1)
                     .then(addTreeView);
-
-
             }
-
-            areaLayer.addTo(map);
         });
     };
 
@@ -364,6 +369,13 @@ var  SYLLMap = function(optOptions){
 
         markerLayer.clearLayers();
 
+        try{
+            layerControl.removeLayer(markerLayer);
+        }
+        catch (e) {
+
+        }
+
         if(gatherCluster){ //聚合模式
 
             markerLayer = L.markerClusterGroup({ chunkedLoading: true });
@@ -396,7 +408,7 @@ var  SYLLMap = function(optOptions){
 
         }else{ //非聚合模式
 
-            markerLayer = new L.layerGroup(null,{pane:"markerPane"});
+            markerLayer = L.layerGroup(null,{pane:"markerPane"});
 
             for (let i = 0; i < dataStations.length; i++) {
                 let a = dataStations[i];
@@ -420,12 +432,16 @@ var  SYLLMap = function(optOptions){
                     marker.bindPopup(popTab);
 
                     marker.bindTooltip(title);
-                    markerLayer.addLayer(marker);
+                    //markerLayer.addLayer(marker);
+                    marker.addTo(markerLayer);
                 }
             }
 
             map.addLayer(markerLayer);
         }
+
+        layerControl.addOverlay(markerLayer,"泵房");
+
     };
 
 
@@ -478,6 +494,70 @@ var  SYLLMap = function(optOptions){
 
     function getMap() {
         return map;
+    };
+
+    function addEchart(geoData,valueData,title){
+        let chartLayer = setEchartMap(geoData,valueData,map,title);
+        //layerControl.addOverlay(chartLayer,"专题图图");
+    };
+
+    let sliderControl;
+
+    function setSliderData(keyArray,geoData,valueData,title){
+
+        getDataAddMarkers = function( {label, value} ) {
+            // map.eachLayer(function (layer) {
+            //     if (layer instanceof L.Marker) {
+            //         map.removeLayer(layer);
+            //     }
+            // });
+
+            let filteredData = valueData[label];
+            addEchart(geoData,filteredData,title);
+        };
+
+        sliderControl = L.control.timelineSlider({
+            timelineItems: keyArray,
+            changeMap: getDataAddMarkers,
+            extraChangeMapParams: {exclamation: "Hello World!"} });
+
+        sliderControl.addTo(map);
+    }
+
+    function addSlider(title){
+        $.getJSON("/leafletMap/leaflet/data/stations.json", function (jsonData) { //获取站点坐标值
+            if (jsonData) {
+                let geoData = jsonData;
+
+                $.getJSON("/leafletMap/leaflet/data/ll10.json", function (jsonData) { //获取站点坐标值
+                    if (jsonData) {
+
+                        let valueData = jsonData;
+
+                        let keyArray = Object.keys(valueData);
+
+                        console.log(keyArray);
+
+                        setSliderData(keyArray,geoData,valueData,title);
+
+
+                    }
+                });
+            }
+        });
+    };
+
+    function removeSlider(){
+        closeEchart(map);
+        sliderControl.remove();
+    }
+
+    function setSlider(flag,title) {
+        if(flag){
+            addSlider(title);
+        } else {
+            removeSlider();
+        }
     }
 
     return{
@@ -488,6 +568,7 @@ var  SYLLMap = function(optOptions){
         ToggleTooltip:ToggleTooltip,
         exportMap: exportMap,
         setSideBySide: setSideBySide,
-        getMap: getMap
+        getMap: getMap,
+        setSlider: setSlider
     }
 };
