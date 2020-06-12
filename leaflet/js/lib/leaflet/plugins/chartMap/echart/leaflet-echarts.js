@@ -1,3 +1,8 @@
+/* global L
+* ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+* ♥♥所有的控件都不要从网上下载官方js/css库 进行替换，有些函数和数值已经修改。切记！♥♥
+* ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+* */
 // window.overlayEchartsIndex = 999;
 L.OverlayEcharts = (L.version < "1.0" ? L.Class : L.Layer).extend({
   includes: L.version < "1.0" ? L.Mixin.Events : [],
@@ -82,6 +87,8 @@ L.OverlayEcharts = (L.version < "1.0" ? L.Class : L.Layer).extend({
   setOption: function(echartsOption) {
     if (echartsOption.series) {
       //var series = echartsOption.series || {};
+      this._echartsOption = echartsOption;
+      console.log(this._echartsOption);
       this._echart.setOption(echartsOption);
     }
   },

@@ -45,7 +45,8 @@ function openStationData(title){
     divContent.appendChild(divBzt);
 
     let divBjdt = document.createElement("div");
-    divBjdt.setAttribute("class","layui-tab-item");
+    divBjdt.setAttribute("id","divBjdt");
+    divBjdt.setAttribute("class","layui-tab-item info controlChart");
     divBjdt.innerHTML = "泵机带图";
     divContent.appendChild(divBjdt);
 
@@ -72,8 +73,11 @@ function openStationData(title){
         title:title,
         type: 1,
         shade: false,
+        area: ['720px','580px'],
         content: $('#divTab') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
     });
+
+    setTabChart(title+" 泵机带图","divBjdt");
 }
 
 function openStationGongyi(title){

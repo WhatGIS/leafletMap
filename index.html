@@ -10,15 +10,12 @@
     <script src="leaflet/js/lib/layui/layui.all.js" type="application/javascript"></script>
     <link rel="stylesheet" href="leaflet/js/lib/ecgs16/css/css.css">
 
-<!--    <link rel="stylesheet" href="leaflet/js/lib/bootstrap/css/bootstrap.css">-->
-<!--    <script src="leaflet/js/lib/bootstrap/js/bootstrap.js" type="application/javascript"></script>-->
-
     <link rel="stylesheet" href="leaflet/js/lib/leaflet/leaflet.css" />
     <script src="leaflet/js/lib/leaflet/leaflet-src.js" type="application/javascript"></script>
 
     <script src="leaflet/js/lib/leaflet/plugins/providers/proj4.js" type="application/javascript"></script>
     <script src="leaflet/js/lib/leaflet/plugins/providers/proj4leaflet.js" type="application/javascript"></script>
-    <script src="leaflet/js/lib/leaflet/plugins/leaflet.ChineseTmsProviders.js" type="text/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/providers/leaflet.ChineseTmsProviders.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/markercluster/MarkerCluster.css">
     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/markercluster/MarkerCluster.Default.css">
@@ -48,9 +45,13 @@
     <script src="leaflet/js/lib/vr/src/PSVNavBarButton.js" type="application/javascript"></script>
     <script src="leaflet/js/lib/vr/vr.js" type="application/javascript"></script>
 
-    <script src="leaflet/js/lib/leaflet/plugins/echart/echarts.js" type="application/javascript"></script>
-    <script src="leaflet/js/lib/leaflet/plugins/echart/leaflet-echarts.js" type="application/javascript"></script>
-    <script src="leaflet/js/echartMap.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/chartMap/echart/echarts.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/chartMap/echart/leaflet-echarts.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/chartMap/controlChart.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/chartMap/tabChart.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/chartMap/layerChart.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/chartMap/markerChart.js" type="application/javascript"></script>
+    <script src="leaflet/js/lib/leaflet/plugins/slider/slider_chart.js" type="application/javascript"></script>
 
     <script src="leaflet/js/lib/leaflet/plugins/slider/leaflet-timeline-slider.js" type="application/javascript"></script>
 
@@ -78,6 +79,16 @@
         .lorem {
             font-style: italic;
             color: #AAA;
+        }
+        /* Custom icon style */
+        .leaflet-echart-icon {
+            transition: all 1s;
+        }
+
+        .controlChart {
+            width: 700px;
+            height: 450px;
+            background-color: rgba(255, 255, 255, 0.52);
         }
     </style>
 </head>
@@ -113,13 +124,18 @@
             <div id="treeDiv" class="demo-tree-more" style="padding-top: 10px;">
 
             </div>
-
         </div>
 
         <div class="sidebar-pane" id="profile">
             <h1 class="sidebar-header">巡检<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
             <div style="padding: 5px;">
-                <input type="checkbox" id="chkChart" value="Chart" title="泵房瞬时流量专题图">泵房瞬时流量专题图</input>
+                <input type="checkbox" id="chkWarn" value="warn" title="泵房报警时空专题图">泵房报警时空专题图</input>
+            </div>
+            <div style="padding: 5px;">
+                <input type="checkbox" id="chkLL" value="liu" title="泵房瞬时流量历史曲线图">泵房瞬时流量曲线图</input>
+            </div>
+            <div style="padding: 5px;">
+                <input type="checkbox" id="chkzongHe" value="zonghe" title="泵房综合数据历史对比图">泵房综合数据历史对比图</input>
             </div>
         </div>
 
@@ -169,10 +185,27 @@
             syllMap.setSideBySide(chkScroll.checked);
         });
 
-        document.getElementById("chkChart").addEventListener("change",function () {
-            let chkChart = document.getElementById("chkChart");
-            let title = chkChart.title;
-            syllMap.setSlider(chkChart.checked,title);
+        //泵房报警历史数据时空图
+        document.getElementById("chkWarn").addEventListener("change",function () {
+            let chkWarn = document.getElementById("chkWarn");
+            let title = chkWarn.title;
+            syllMap.setSlider(chkWarn.checked,title);
+
+        });
+
+        //所有泵房流量历史数据柱状图
+        document.getElementById("chkLL").addEventListener("change",function () {
+            let chkLL = document.getElementById("chkLL");
+            let title = chkLL.title;
+            syllMap.setMarkerChart(chkLL.checked,title);
+
+        });
+
+        //单个泵房压力流量历史曲线图
+        document.getElementById("chkzongHe").addEventListener("change",function () {
+            let chkzongHe = document.getElementById("chkzongHe");
+            let title = chkzongHe.title;
+            syllMap.setControlChart(chkzongHe.checked,title);
 
         });
 

@@ -1,3 +1,9 @@
+/* global L
+* ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+* ♥♥所有的控件都不要从网上下载官方js/css库 进行替换，有些函数和数值已经修改。切记！♥♥
+* ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+* */
+
 // TODO: parameterize timeline colors, overall length, and length between points (css styles)
 L.Control.TimeLineSlider = L.Control.extend({
 

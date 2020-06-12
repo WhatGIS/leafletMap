@@ -57,7 +57,7 @@ var  SYLLMap = function(optOptions){
 
             layerControl.addTo(map);
 
-            console.log(layerControl);
+            //console.log(layerControl);
 
             getOverLayers();
 
@@ -98,7 +98,7 @@ var  SYLLMap = function(optOptions){
     };
 
     function getOverLayers(){
-        console.log(layerControl);
+        //console.log(layerControl);
         addArea();
         addStations();
         //return [areaLayer,markerLayer];
@@ -109,7 +109,7 @@ var  SYLLMap = function(optOptions){
      * 添加区域
      */
     function addArea(){
-        console.log(layerControl);
+        //console.log(layerControl);
         getDivisions();
     };
 
@@ -143,7 +143,7 @@ var  SYLLMap = function(optOptions){
         //var conditions={"conditions":[{"Field":"cid","Operate":"=","Value":GCtx.customer._id,"Relation":"and"},{"Field":"pid","Operate":"=","Value":"5d2185abbdb7fc00b8a36366","Relation":"and"}],"order":[{"Field":"w","Type":false}],"size":999,"index":1}
         //Service.getdivisions(conditions,function(rep){
 
-        console.log(layerControl);
+        //console.log(layerControl);
 
         $.getJSON("/leafletMap/leaflet/data/area.json",function(areaJson){
             var rows = areaJson.Response.rows;
@@ -169,7 +169,7 @@ var  SYLLMap = function(optOptions){
         $.getJSON("/leafletMap/leaflet/data/HFStations.json",function(stationJson){
 
             let data = stationJson.RECORDS;
-            console.log(data);
+            //console.log(data);
             if(data.length>0){
 
                 let data1 = reSizeData(data)
@@ -224,7 +224,7 @@ var  SYLLMap = function(optOptions){
                 dataStations.push(newData);
             }
 
-            console.log(rootTree);
+            //console.log(rootTree);
 
 
     }
@@ -297,9 +297,9 @@ var  SYLLMap = function(optOptions){
                     console.log("状态:" + obj.state + " <br> 节点数据:" + JSON.stringify(clickData));
                 },
                 oncheck: function(obj){
-                    console.log("节点数据:"+obj.data); //得到当前点击的节点数据
-                    console.log("节点状态:"+obj.checked); //得到当前节点的展开状态：open、close、normal
-                    console.log("节点元素:"+obj.elem); //得到当前节点元素
+                    //console.log("节点数据:"+obj.data); //得到当前点击的节点数据
+                    //console.log("节点状态:"+obj.checked); //得到当前节点的展开状态：open、close、normal
+                    //console.log("节点元素:"+obj.elem); //得到当前节点元素
 
                     //console.log(dataStations);//维护站点visible
                     if(hasSetTree)
@@ -384,17 +384,24 @@ var  SYLLMap = function(optOptions){
                 let a = dataStations[i];
                 let title = a.title;
 
-                let index = filterTree.indexOf(title);
-                if(index==-1){  //不在过滤范围内的才渲染，filterTree是树形图的过滤数组
-                    let micon = staticon;
+                let isInFilter = false;
+                if(filterTree.length>0){
+                    let index = filterTree.indexOf(title);
+                    if(index>-1)
+                        isInFilter = true;
+                }
+
+                if(!isInFilter) {  //不在过滤范围内的才渲染，filterTree是树形图的过滤数组
+
+                    let micon1 = staticon;
                     let status = a.status;
                     if(status==="0"){
-                        micon = stopicon;
+                        micon1 = stopicon;
                     } else if(status ==="2"){
-                        micon = warnicon;
+                        micon1 = warnicon;
                     }
 
-                    let marker = L.marker(L.latLng(a.loc), {icon:micon});
+                    let marker = L.marker(L.latLng(a.loc), {icon:micon1});
 
                     let popTab = getPopupContent(a,map);
                     marker.bindPopup(popTab);
@@ -414,24 +421,36 @@ var  SYLLMap = function(optOptions){
                 let a = dataStations[i];
                 let title = a.title;
 
-                let index = filterTree.indexOf(title);
-                if(index==-1) {  //不在过滤范围内的才渲染，filterTree是树形图的过滤数组
+                let isInFilter = false;
+                if(filterTree.length>0){
+                    let index = filterTree.indexOf(title);
+                    if(index>-1)
+                        isInFilter = true;
+                }
 
-                    let micon = staticon;
+                if(!isInFilter) {  //不在过滤范围内的才渲染，filterTree是树形图的过滤数组
+
+                    let micon2 = staticon;
                     let status = a.status;
 
                     if (status === "0") {
-                        micon = stopicon;
+                        micon2 = stopicon;
                     } else if (status === "2") {
-                        micon = warnicon;
+                        micon2 = warnicon;
                     }
 
-                    let marker = L.marker(L.latLng(a.loc), {icon: micon});
+                    let marker = L.marker(L.latLng(a.loc), {icon: micon2});
 
                     let popTab = getPopupContent(a,map);
                     marker.bindPopup(popTab);
 
-                    marker.bindTooltip(title);
+                    if(showAllTip){
+                        marker.bindTooltip(title).openTooltip();
+                    } else {
+                        marker.bindTooltip(title);
+                    }
+
+                    //
                     //markerLayer.addLayer(marker);
                     marker.addTo(markerLayer);
                 }
@@ -496,67 +515,43 @@ var  SYLLMap = function(optOptions){
         return map;
     };
 
-    function addEchart(geoData,valueData,title){
-        let chartLayer = setEchartMap(geoData,valueData,map,title);
-        //layerControl.addOverlay(chartLayer,"专题图图");
-    };
-
-    let sliderControl;
-
-    function setSliderData(keyArray,geoData,valueData,title){
-
-        getDataAddMarkers = function( {label, value} ) {
-            // map.eachLayer(function (layer) {
-            //     if (layer instanceof L.Marker) {
-            //         map.removeLayer(layer);
-            //     }
-            // });
-
-            let filteredData = valueData[label];
-            addEchart(geoData,filteredData,title);
-        };
-
-        sliderControl = L.control.timelineSlider({
-            timelineItems: keyArray,
-            changeMap: getDataAddMarkers,
-            extraChangeMapParams: {exclamation: "Hello World!"} });
-
-        sliderControl.addTo(map);
-    }
-
-    function addSlider(title){
-        $.getJSON("/leafletMap/leaflet/data/stations.json", function (jsonData) { //获取站点坐标值
-            if (jsonData) {
-                let geoData = jsonData;
-
-                $.getJSON("/leafletMap/leaflet/data/ll10.json", function (jsonData) { //获取站点坐标值
-                    if (jsonData) {
-
-                        let valueData = jsonData;
-
-                        let keyArray = Object.keys(valueData);
-
-                        console.log(keyArray);
-
-                        setSliderData(keyArray,geoData,valueData,title);
-
-
-                    }
-                });
-            }
-        });
-    };
-
-    function removeSlider(){
-        closeEchart(map);
-        sliderControl.remove();
-    }
-
+    /**
+     * 更新滑动控件的状态
+     * @param flag
+     * @param title
+     */
     function setSlider(flag,title) {
         if(flag){
-            addSlider(title);
+            addSlider(title,map);
         } else {
-            removeSlider();
+            removeSlider(map);
+        }
+    };
+
+
+    /**
+     *  泵房瞬时流量历史数据图 直接添加echart对象。
+     */
+    function setMarkerChart(flag){
+
+        if(flag){
+            addMarkerEChart(map);
+        } else {
+            removeMarkerEChart();
+        }
+    };
+
+    /**
+     * 右下角 Control chart。
+     * @param flag
+     * @param title
+     */
+    function setControlChart(flag,title) {
+        if(flag){
+            addControlEChart(title,map)
+
+        } else {
+            removeControlEChart();
         }
     }
 
@@ -568,7 +563,9 @@ var  SYLLMap = function(optOptions){
         ToggleTooltip:ToggleTooltip,
         exportMap: exportMap,
         setSideBySide: setSideBySide,
-        getMap: getMap,
-        setSlider: setSlider
+        setSlider: setSlider,
+        setMarkerChart:setMarkerChart,
+        setControlChart:setControlChart,
+        getMap: getMap
     }
 };

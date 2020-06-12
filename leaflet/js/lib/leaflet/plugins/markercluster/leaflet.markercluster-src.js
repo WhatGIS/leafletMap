@@ -1,3 +1,8 @@
+/* global L
+* ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+* ♥♥所有的控件都不要从网上下载官方js/css库 进行替换，有些函数和数值已经修改。切记！♥♥
+* ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+* */
 /*
  * Leaflet.markercluster 1.4.1+master.37ab9a2,
  * Provides Beautiful Animated Marker Clustering functionality for Leaflet, a JS library for interactive maps.
