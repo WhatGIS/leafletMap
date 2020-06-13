@@ -417,6 +417,8 @@ var  SYLLMap = function(optOptions){
 
             markerLayer = L.layerGroup(null,{pane:"markerPane"});
 
+            map.addLayer(markerLayer);
+
             for (let i = 0; i < dataStations.length; i++) {
                 let a = dataStations[i];
                 let title = a.title;
@@ -441,22 +443,19 @@ var  SYLLMap = function(optOptions){
 
                     let marker = L.marker(L.latLng(a.loc), {icon: micon2});
 
+                    marker.addTo(markerLayer);
+
                     let popTab = getPopupContent(a,map);
                     marker.bindPopup(popTab);
 
                     if(showAllTip){
-                        marker.bindTooltip(title).openTooltip();
+                        marker.bindTooltip(title);
+                        marker.fire("mouseover");//.openTooltip();
                     } else {
                         marker.bindTooltip(title);
                     }
-
-                    //
-                    //markerLayer.addLayer(marker);
-                    marker.addTo(markerLayer);
                 }
             }
-
-            map.addLayer(markerLayer);
         }
 
         layerControl.addOverlay(markerLayer,"泵房");

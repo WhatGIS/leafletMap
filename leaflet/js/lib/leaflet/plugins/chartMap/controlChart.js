@@ -15,11 +15,15 @@ option = {
     //     text: '动态数据',
     //     subtext: '纯属虚构'
     // },
+    color:['#c23531','#c23531', '#d48265','#d48265', '#61a0a8','#61a0a8','#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
     tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
     },
     legend: {
-        data:['一区压力', '一区瞬时流量','二区压力', '二区瞬时流量','三区压力', '三区瞬时流量']
+        data:['一区瞬时流量','一区压力','二区瞬时流量', '二区压力', '三区瞬时流量', '三区压力']
     },
     dataZoom: {
         show: false,
@@ -62,7 +66,7 @@ option = {
     ],
     series: [
         {
-            name: '一区压力',
+            name: '一区瞬时流量',
             type: 'bar',
             yAxisIndex: 1,
             data: (function (){
@@ -75,7 +79,7 @@ option = {
             })()
         },
         {
-            name: '一区瞬时流量',
+            name: '一区压力',
             type: 'line',
             data: (function (){
                 let res = [];
@@ -83,38 +87,12 @@ option = {
                 while (len < 10) {
                     res.push((Math.random()*10 + 5).toFixed(1) - 0);
                     len++;
-                }
-                return res;
-            })()
-        },
-        {
-            name: '二区压力',
-            type: 'bar',
-            yAxisIndex: 1,
-            data: (function (){
-                let res = [];
-                let len = 10;
-                while (len--) {
-                    res.push(Math.round(Math.random() * 100));
                 }
                 return res;
             })()
         },
         {
             name: '二区瞬时流量',
-            type: 'line',
-            data: (function (){
-                let res = [];
-                let len = 0;
-                while (len < 10) {
-                    res.push((Math.random()*10 + 5).toFixed(1) - 0);
-                    len++;
-                }
-                return res;
-            })()
-        },
-        {
-            name: '三区压力',
             type: 'bar',
             yAxisIndex: 1,
             data: (function (){
@@ -127,7 +105,33 @@ option = {
             })()
         },
         {
+            name: '二区压力',
+            type: 'line',
+            data: (function (){
+                let res = [];
+                let len = 0;
+                while (len < 10) {
+                    res.push((Math.random()*10 + 5).toFixed(1) - 0);
+                    len++;
+                }
+                return res;
+            })()
+        },
+        {
             name: '三区瞬时流量',
+            type: 'bar',
+            yAxisIndex: 1,
+            data: (function (){
+                let res = [];
+                let len = 10;
+                while (len--) {
+                    res.push(Math.round(Math.random() * 100));
+                }
+                return res;
+            })()
+        },
+        {
+            name: '三区压力',
             type: 'line',
             data: (function (){
                 let res = [];
@@ -151,13 +155,14 @@ function refreshData(myChart)
         let newDate = new Date().toTimeString();
         let axisData = newDate.substr(0,newDate.indexOf("GMT")-1);
 
-        let data0 = option.series[0].data;
-        let data1 = option.series[1].data;
+        let data0 = option.series[0].data; //一区压力
+        let data1 = option.series[1].data; //一区瞬时流量
 
-        let data2 = option.series[2].data;
-        let data3 = option.series[3].data;
-        let data4 = option.series[4].data;
-        let data5 = option.series[5].data;
+        let data2 = option.series[2].data; //二区压力
+        let data3 = option.series[3].data; //二区瞬时流量
+
+        let data4 = option.series[4].data; //三区压力
+        let data5 = option.series[5].data; //三区瞬时流量
 
         data0.shift();
         data0.push(Math.round(Math.random() * 100));
@@ -297,7 +302,7 @@ function setControlEChart(title,map,jsonData){
 
     chartControl.onAdd = function (map) {
 
-        var div = L.DomUtil.create('div', 'info controlChart');
+        let div = L.DomUtil.create('div', 'info controlChart');
         div.id="chartdemo";
 
         return div;

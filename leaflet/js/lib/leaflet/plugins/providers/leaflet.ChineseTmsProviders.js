@@ -42,6 +42,7 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 });
 
 L.TileLayer.ChinaProvider.providers = {
+
     TianDiTu: {
         Normal: {
             Map: "//t{s}.tianditu.com/DataServer?T=vec_w&X={x}&Y={y}&L={z}&tk={key}",

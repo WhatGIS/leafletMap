@@ -142,8 +142,8 @@ var baseLayers = {
     "天地图影像图": TDTImage,
     //"天地图混地形图": TDTTerrain,
 
-    // "高德地图": GaodeNormal,
-    // "高德影像": GaodeImage,
+     "高德地图": GaodeNormal,
+     "高德影像": GaodeImage,
     //
     // "百度地图": BDNormal,
     // "百度影像": BDImage,
@@ -151,10 +151,10 @@ var baseLayers = {
     //  "谷歌地图": GoogleNormal,
     //  "谷歌影像": GoogleSatellite,
 
-    // "智图地图": GeoqMap,
-    // "智图午夜蓝": GeoqBlue,
-    // "智图灰色": GeoqGray,
-    // "智图暖色": GeoqWarm,
+     "智图地图": GeoqMap,
+     "智图午夜蓝": GeoqBlue,
+     "智图灰色": GeoqGray,
+     "智图暖色": GeoqWarm,
     // "智图鸟瞰": GeoqHydro,
 
      // "OSM": OSMMap,

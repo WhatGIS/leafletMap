@@ -154,7 +154,8 @@ function setMarkerEChart(geoData,RawTime,jsonData,map) {
 }
 
 function removeMarkerEChart() {
-    $('.leaflet-marker-icon').remove();
+    //$('.leaflet-marker-icon').remove();
+    $('.leaflet-echart-icon').remove();
 }
 
 function addMarkerEChart(map) {
