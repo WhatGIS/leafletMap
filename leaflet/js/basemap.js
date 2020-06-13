@@ -114,17 +114,6 @@ var BDimga = L.tileLayer.chinaProvider('Baidu.Satellite.Annotion',{
 });
 var BDImage = L.layerGroup(BDimgm,BDimga);
 
-//本机离线地图
-var offImgurl = 'https://localhost:4438/{z}/{x}/{y}.jpg';
-//初始化 地图，这个view要设置到离线地图的范围，不然什么都没有
-//var leafletMap = L.map('mapDiv').setView([39.2, 117.25], 13);
-//将图层加载到地图上，并设置最大的聚焦还有map样式
-var localLayer = L.tileLayer(offImgurl, {
-    maxZoom: 18,
-    minZoom:5
-});
-var localGroup = L.layerGroup([localLayer]);
-
 //87服务器地图
 const offImgServer = 'https://192.168.3.87:4438/{z}/{x}/{y}.png';
 //初始化 地图，这个view要设置到离线地图的范围，不然什么都没有
@@ -144,18 +133,18 @@ var baseLayers = {
 
      "高德地图": GaodeNormal,
      "高德影像": GaodeImage,
-    //
+
     // "百度地图": BDNormal,
     // "百度影像": BDImage,
-    //
+
     //  "谷歌地图": GoogleNormal,
     //  "谷歌影像": GoogleSatellite,
 
-     "智图地图": GeoqMap,
+    // "智图地图": GeoqMap,
      "智图午夜蓝": GeoqBlue,
-     "智图灰色": GeoqGray,
-     "智图暖色": GeoqWarm,
-    // "智图鸟瞰": GeoqHydro,
+    //"智图灰色": GeoqGray,
+    //"智图暖色": GeoqWarm,
+    //"智图鸟瞰": GeoqHydro,
 
      // "OSM": OSMMap,
 

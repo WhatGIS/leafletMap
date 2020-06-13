@@ -113,7 +113,6 @@ L.TileLayer.ChinaProvider.providers = {
         Subdomains: '0123456789',
         tms: true
     }
-
 };
 
 L.tileLayer.chinaProvider = function(type, options) {

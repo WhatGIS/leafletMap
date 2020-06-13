@@ -46,7 +46,7 @@ var  SYLLMap = function(optOptions){
                 //crs: L.CRS.Baidu, 百度地图专用
                 center: [31.849584, 117.245202],
                 zoom: 12,
-                layers: [serverGroup],
+                layers: [GeoqBlue],
                 zoomControl: false,
                 attributionControl: false
             });
