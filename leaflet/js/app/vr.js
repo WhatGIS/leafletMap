@@ -15,7 +15,7 @@ function loadVrJpg(id) {
 
     PSV = new PhotoSphereViewer({
         // Path to the panorama
-        panorama: 'leaflet/js/lib/vr/pic/'+ picName +'.jpg',
+        panorama: 'leaflet/js/lib/vr/pic/AI.jpg',
 
         // Container
         container: div,

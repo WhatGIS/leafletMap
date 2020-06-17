@@ -1,40 +1,4 @@
 
-/**
- * 转换为RawChart的数据
- * @param jsonData
- * @constructor
- */
-function RevertData(geoData,jsonData) {
-    let RawData = {};
-    let id = 1;
-    $.each(jsonData,function(i,ele){
-        if(!!ele){
-            for(let i=0;i<ele.length;i++){
-
-                let curValue = ele[i];
-                let place = curValue.name;
-                let value = parseFloat(curValue.value);
-
-                if(RawData[place]){
-                    RawData[place]["value"].push(value);
-                } else {
-                    let location = geoData[place];
-
-                    RawData[place] ={};
-                    RawData[place]["id"] = id;
-                    RawData[place]["location"] = location.reverse();
-
-                    let newValue = [value];
-                    RawData[place]["value"] = newValue;
-                    id++;
-                }
-            }
-        }
-    });
-
-    return RawData;
-};
-
 
 function setMarkerEChart(geoData,RawTime,jsonData,map) {
 
@@ -76,7 +40,7 @@ function setMarkerEChart(geoData,RawTime,jsonData,map) {
             },
             backgroundColor:'rgba(255,255,255,0.26)',
 
-            color: ['#f308cc', '#72e80b', '#0a3cd0'],
+            color: ['#c23531', '#eaf308', '#1a4bdb'],
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -175,3 +139,119 @@ function addMarkerEChart(map) {
     });
 };
 
+function updateMarkerEChart2(keyArray,geoData,jsonData,map){
+    removeMarkerEChart();
+    addMarkerEChart2(keyArray,geoData,jsonData,map);
+}
+
+
+function addMarkerEChart2(keyArray,geoData,jsonData,map) {
+
+    let id =0;
+
+    $.each(jsonData, function (i, val) {
+
+        let cname = val['name'];
+        let cvalue = val['value'];
+
+        let curLocation = JSON.parse(JSON.stringify(geoData[cname]));
+
+        let location = curLocation.reverse();
+
+        let domId = "marker"+i;
+
+        let icon = L.divIcon({
+            className: 'leaflet-echart-icon',
+            iconSize: [380, 300],
+            html: '<div id="' + domId + '" style="width: 380; height: 300px; position: relative; background-color: transparent;"></div>'
+        });
+
+        let picMarker = L.marker(L.latLng(location), {
+            icon:icon
+        }).addTo(map);
+
+        let dom = document.getElementById('marker'+id);
+        // 基于准备好的dom，初始化eChart实例
+
+
+        let myChart = echarts.init(dom);
+
+        // 指定图表的配置项和数据
+        let option = {
+            title: {
+                text: cname + " :MPa",
+                left:'left',
+                textStyle: {
+                    color: 'rgba(156,8,8,0.93)',
+                    textBorderColor:'#ffffff',
+                    textBorderWidth:1,
+                },
+            },
+            backgroundColor:'rgba(255,255,255,0.26)',
+
+            color: ['#c23531', '#eaf308', '#1a4bdb', '#13930f'],
+            tooltip: {},
+            // legend: {
+            //     data: keyArray
+            // },
+            toolbox: {
+                show: false,
+                orient: 'vertical',
+                left: 'right',
+                top: 'center',
+                feature: {
+                    mark: {show: false},
+                    dataView: {show: false, readOnly: false},
+                    magicType: {show: false, type: ['line', 'bar', 'stack', 'tiled']},
+                    restore: {show: false},
+                    saveAsImage: {show: true}
+                }
+            },
+            radar:{
+                name:{
+                    textStyle:{
+                        color:'#fff',
+                        backgroundColor:'#999',
+                        borderRadius:3,
+                        padding:[3,5]
+                    }
+                },
+                indicator:[
+                    {name: "进水压力",max:20},
+                    {name: "一区压力",max:20},
+                    {name: "二区压力",max:20},
+                    {name: "三区压力",max:20}
+                ]
+            },
+            series: [{
+                name: '泵房压力',
+                type: 'radar',
+                data: [
+                    {
+                        name:"泵房压力",
+                        value:cvalue
+                    }
+                ],
+                label:{
+                    show:true,
+                    position: 'top',
+                    fontSize:16,
+                    fontWeight:'bold',
+                    textBorderColor:'#fff',
+                    textBorderWidth:1
+                }
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        myChart.getZr().off("dragstart", function() {});
+        myChart.getZr().off("dragend", function() {});
+        myChart.getZr().off("mouseup", function() {});
+        myChart.getZr().off("mousedown", function() {});
+        myChart.getZr().off("mousewheel", function() {});
+
+        id++;
+    });
+
+};

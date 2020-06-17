@@ -15,7 +15,9 @@ option = {
     //     text: '动态数据',
     //     subtext: '纯属虚构'
     // },
-    color:['#c23531','#c23531', '#d48265','#d48265', '#61a0a8','#61a0a8','#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+    color:['#c23531','#c23531', '#eaf308','#eaf308'
+            , '#1a4bdb','#1a4bdb','#8405c9'
+            ,'#91c7ae','#749f83', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
     tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -23,7 +25,7 @@ option = {
         }
     },
     legend: {
-        data:['一区瞬时流量','一区压力','二区瞬时流量', '二区压力', '三区瞬时流量', '三区压力']
+        data:['一区瞬时流量','一区压力','二区瞬时流量', '二区压力', '三区瞬时流量', '三区压力','进水压力']
     },
     dataZoom: {
         show: false,
@@ -69,6 +71,12 @@ option = {
             name: '一区瞬时流量',
             type: 'bar',
             yAxisIndex: 1,
+            label:{
+                normal:{
+                    show:true,
+                    position:'top'
+                }
+            },
             data: (function (){
                 let res = [];
                 let len = 10;
@@ -81,6 +89,12 @@ option = {
         {
             name: '一区压力',
             type: 'line',
+            label:{
+                normal:{
+                    show:true,
+                    position:'top'
+                }
+            },
             data: (function (){
                 let res = [];
                 let len = 0;
@@ -95,6 +109,12 @@ option = {
             name: '二区瞬时流量',
             type: 'bar',
             yAxisIndex: 1,
+            label:{
+                normal:{
+                    show:true,
+                    position:'top'
+                }
+            },
             data: (function (){
                 let res = [];
                 let len = 10;
@@ -107,6 +127,12 @@ option = {
         {
             name: '二区压力',
             type: 'line',
+            label:{
+                normal:{
+                    show:true,
+                    position:'top'
+                }
+            },
             data: (function (){
                 let res = [];
                 let len = 0;
@@ -121,6 +147,12 @@ option = {
             name: '三区瞬时流量',
             type: 'bar',
             yAxisIndex: 1,
+            label:{
+                normal:{
+                    show:true,
+                    position:'top'
+                }
+            },
             data: (function (){
                 let res = [];
                 let len = 10;
@@ -133,6 +165,34 @@ option = {
         {
             name: '三区压力',
             type: 'line',
+            label:{
+                normal:{
+                    show:true,
+                    position:'top'
+                }
+            },
+            data: (function (){
+                let res = [];
+                let len = 0;
+                while (len < 10) {
+                    res.push((Math.random()*10 + 5).toFixed(1) - 0);
+                    len++;
+                }
+                return res;
+            })()
+        },
+        {
+            name: '进水压力',
+            type: 'line',
+            label:{
+                normal:{
+                    show:true,
+                    position:'top'
+                }
+            },
+            lineStyle:{
+                width:4
+            },
             data: (function (){
                 let res = [];
                 let len = 0;
@@ -146,9 +206,10 @@ option = {
     ]
 };
 
+let timeInterval;
 function refreshData(myChart)
 {
-    setInterval(function (){
+   timeInterval = setInterval(function (){
 
         //let axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
 
@@ -163,6 +224,8 @@ function refreshData(myChart)
 
         let data4 = option.series[4].data; //三区压力
         let data5 = option.series[5].data; //三区瞬时流量
+
+        let data6 = option.series[6].data; //进水压力
 
         data0.shift();
         data0.push(Math.round(Math.random() * 100));
@@ -182,9 +245,14 @@ function refreshData(myChart)
         data5.shift();
         data5.push((Math.random() * 10 + 5).toFixed(1) - 0);
 
+        data6.shift();
+        data6.push((Math.random() * 10 + 5).toFixed(1) - 0);
+
         option.xAxis[0].data.shift();
         option.xAxis[0].data.push(axisData);
 
+        console.log("add Data");
+        console.log(axisData);
 
         myChart.setOption(option);
     }, 2100);
@@ -323,5 +391,8 @@ function setControlEChart(title,map,jsonData){
 function removeControlEChart() {
     if(chartControl){
         chartControl.remove();
+    }
+    if(timeInterval){
+        clearInterval(timeInterval);
     }
 }

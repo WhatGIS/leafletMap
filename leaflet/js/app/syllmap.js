@@ -34,7 +34,7 @@ var  SYLLMap = function(optOptions){
                 console.log('aborted request:'+ text);
             }
         };
-    }
+    };
 
     /**
      * 初始化地图
@@ -66,8 +66,6 @@ var  SYLLMap = function(optOptions){
                 zoomOutTitle: '缩小'
             }).addTo(map);
 
-
-
             L.control.mousePosition().addTo(map);
 
             searchControl = new L.Control.Search({
@@ -84,9 +82,9 @@ var  SYLLMap = function(optOptions){
 
             let measureControl = new L.Control.Measure({
                 position: 'topright',
-                primaryLengthUnit: 'meters',
-                secondaryLengthUnit: 'kilometers',
-                primaryAreaUnit: 'acres',
+                primaryLengthUnit: 'kilometers',
+                secondaryLengthUnit: 'meters',
+                primaryAreaUnit: 'sqmiles',
                 secondaryAreaUnit: 'sqmeters',
                 activeColor: '#e2a25d',
                 completedColor: '#f16303'
@@ -380,6 +378,8 @@ var  SYLLMap = function(optOptions){
 
             markerLayer = L.markerClusterGroup({ chunkedLoading: true });
 
+            map.addLayer(markerLayer);
+
             for (let i = 0; i < dataStations.length; i++) {
                 let a = dataStations[i];
                 let title = a.title;
@@ -402,16 +402,21 @@ var  SYLLMap = function(optOptions){
                     }
 
                     let marker = L.marker(L.latLng(a.loc), {icon:micon1});
+                    markerLayer.addLayer(marker);
 
                     let popTab = getPopupContent(a,map);
                     marker.bindPopup(popTab);
 
-                    marker.bindTooltip(title);
-                    markerLayer.addLayer(marker);
+                    if(showAllTip) {
+                        marker.bindTooltip(title);
+                        marker.fire('mouseover')
+                    } else {
+                        marker.bindTooltip(title)
+                    }
                 }
             }
 
-            map.addLayer(markerLayer);
+
 
         }else{ //非聚合模式
 
@@ -519,11 +524,11 @@ var  SYLLMap = function(optOptions){
      * @param flag
      * @param title
      */
-    function setSlider(flag,title) {
+    function setSlider(flag,title,type) {
         if(flag){
-            addSlider(title,map);
+            addSlider(title,map,type);
         } else {
-            removeSlider(map);
+            removeSlider(map,type);
         }
     };
 
@@ -554,6 +559,23 @@ var  SYLLMap = function(optOptions){
         }
     }
 
+    /**
+     * 热力图。
+     * @param flag
+     * @param title
+     */
+    function setHeatLayer(flag,title) {
+
+        if(flag){
+            
+            addHeatLayer(title,map);
+
+        } else {
+            removeHeatLayer();
+        }
+
+    }
+
     return{
         initialMap: initialMap,
         getOverLayers: getOverLayers,
@@ -565,6 +587,7 @@ var  SYLLMap = function(optOptions){
         setSlider: setSlider,
         setMarkerChart:setMarkerChart,
         setControlChart:setControlChart,
+        setHeatLayer: setHeatLayer,
         getMap: getMap
     }
 };

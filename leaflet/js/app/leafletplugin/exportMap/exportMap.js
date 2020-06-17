@@ -26,10 +26,27 @@ function getImageWithText(canvas, text) {
     context.fillStyle = "#fff";
     context.fillText(text, 10, canvas.height - 10);
 
-    return canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    return canvas.toDataURL("image/png");//.replace("image/png", "image/octet-stream");
 }
 
 function downloadImage(filename, dataUrl) {
+
+    // 生成一个a元素
+    let a = document.createElement('a')
+    // 创建一个单击事件
+    let event = new MouseEvent('click')
+
+    // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+    a.download = filename
+    // 将生成的URL设置为a.href属性
+    a.href = dataUrl
+
+    // 触发a的单击事件
+    a.dispatchEvent(event)
+
+
+    return;
+
     // the download is handled differently in Microsoft browsers
     // because the download attribute for <a> elements is not supported
     if (!window.navigator.msSaveOrOpenBlob) {
@@ -53,6 +70,7 @@ function downloadImage(filename, dataUrl) {
 
         //element.click();
         //document.body.removeChild(element);
+
     } else {
         // for MS browsers convert dataUrl to Blob
         const byteString = atob(dataUrl.split(",")[1]);
@@ -70,6 +88,16 @@ function downloadImage(filename, dataUrl) {
         // download file
         window.navigator.msSaveOrOpenBlob(blob, filename);
     }
+}
+
+function downimg(canvas){
+    let iframe = document.createElement('iframe'); //或者img
+    //var dimensions = __WEBPACK_IMPORTED_MODULE_3__basemap_js__["a" /* map */].getSize();
+    iframe.width = canvas.width;
+    iframe.height = canvas.height;
+    iframe.src = canvas.toDataURL();
+    iframe.crossOrigin = "Anonymous";
+    window.open(iframe.src);
 }
 
 function exportImage(id){
