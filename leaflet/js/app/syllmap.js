@@ -3,11 +3,32 @@
  * zhangjie.20200527
  */
 
-var  SYLLMap = function(optOptions){
+define([
+        'app/popupContent'
+        ,'controlChart'
+        ,'exportMap'
+        ,'L'
+        ,'layui'
 
-    let options = optOptions || {};
-    let id = options.mapId;//地图组件divId
-    let treeid = options.treeId //树形组件divId
+        // ,'lib/plugins/search/leaflet-search.src'
+        ,'sideBar'
+        ,'Measure'
+        ,'sideBySide'
+        ,'mousePosition'
+        ,'chinaProvider'
+        ,'baseMap'
+        ,'markerCluster'
+        ],function(
+            popup
+            ,controlChart
+            ,exportMap
+            ,L
+            ,layui
+        ){
+
+    let treeId;
+
+    let mapId;
 
     let map = null; //地图全局变量
 
@@ -39,10 +60,13 @@ var  SYLLMap = function(optOptions){
     /**
      * 初始化地图
      */
-    function initialMap(){
+    function initialMap(option){
 
-        if(id){
-            map = L.map(id, {
+        mapId = option.mapId;//地图组件divId
+        treeId = option.treeId //树形组件divId
+
+        if(mapId){
+            map = L.map(mapId, {
                 //crs: L.CRS.Baidu, 百度地图专用
                 center: [31.849584, 117.245202],
                 zoom: 12,
@@ -68,17 +92,17 @@ var  SYLLMap = function(optOptions){
 
             L.control.mousePosition().addTo(map);
 
-            searchControl = new L.Control.Search({
-                position:"topleft",
-                sourceData: localData,//采用数据传递，不再使用图层处理数据
-                initial:false,
-                zoom: 18,
-                //marker:true,
-                //buildTip: customTip,
-                collapsed:true,
-                hideMarkerOnCollapse:true
-            });
-            map.addControl(searchControl);
+            // searchControl = new L.Control.Search({
+            //     position:"topleft",
+            //     sourceData: localData,//采用数据传递，不再使用图层处理数据
+            //     initial:false,
+            //     zoom: 18,
+            //     //marker:true,
+            //     //buildTip: customTip,
+            //     collapsed:true,
+            //     hideMarkerOnCollapse:true
+            // });
+            // map.addControl(searchControl);
 
             let measureControl = new L.Control.Measure({
                 position: 'topright',
@@ -101,7 +125,7 @@ var  SYLLMap = function(optOptions){
         addStations();
         //return [areaLayer,markerLayer];
         //
-    }
+    };
 
     /**
      * 添加区域
@@ -236,9 +260,9 @@ var  SYLLMap = function(optOptions){
      */
     function setTreeView() {
 
-            let tree = layui.tree, layer = layui.layer, util = layui.util;
+        console.log(layui);
 
-            function checkStationVisible(filterData,flag){
+        function checkStationVisible(filterData,flag){
 
                 try{
 
@@ -282,8 +306,11 @@ var  SYLLMap = function(optOptions){
                 }
             }
 
+        layui.use(['tree'],function(){
+            let tree = layui.tree;
+
             tree.render({
-                elem: "#" + treeid,
+                elem: "#" + treeId,
                 data: rootTree,
                 id: "treeView",
                 showCheckbox: true,
@@ -301,15 +328,15 @@ var  SYLLMap = function(optOptions){
 
                     //console.log(dataStations);//维护站点visible
                     if(hasSetTree)
-                    checkStationVisible(obj.data ,obj.checked?"remove":"add");
+                        checkStationVisible(obj.data ,obj.checked?"remove":"add");
                 }
             });
 
             hasSetTree = true;
 
             console.log("addAllTree!");
-
-    }
+        });
+    };
 
     function setTreeData(data) {
 
@@ -343,7 +370,7 @@ var  SYLLMap = function(optOptions){
 
             rootTree.push(rootItem);
         }
-    }
+    };
 
     /**
      * 添加站点
@@ -404,7 +431,7 @@ var  SYLLMap = function(optOptions){
                     let marker = L.marker(L.latLng(a.loc), {icon:micon1});
                     markerLayer.addLayer(marker);
 
-                    let popTab = getPopupContent(a,map);
+                    let popTab = popup.getPopupContent(a,map);
                     marker.bindPopup(popTab);
 
                     if(showAllTip) {
@@ -450,7 +477,7 @@ var  SYLLMap = function(optOptions){
 
                     marker.addTo(markerLayer);
 
-                    let popTab = getPopupContent(a,map);
+                    let popTab = popup.getPopupContent(a,map);
                     marker.bindPopup(popTab);
 
                     if(showAllTip){
@@ -474,7 +501,7 @@ var  SYLLMap = function(optOptions){
      */
     function setCluster(flag) {
         gatherCluster = flag;
-    }
+    };
 
     /**
      * 设置标注的标识符
@@ -485,7 +512,7 @@ var  SYLLMap = function(optOptions){
         showAllTip = flag;
 
         renderStation();
-    }
+    };
 
     /**
      * 导出图片
@@ -494,8 +521,8 @@ var  SYLLMap = function(optOptions){
         if(sidebar){
             sidebar.close();
         }
-        exportImage(id);
-    }
+        exportMap.exportImage(id);
+    };
 
     /**
      * 卷帘控件
@@ -557,7 +584,7 @@ var  SYLLMap = function(optOptions){
         } else {
             removeControlEChart();
         }
-    }
+    };
 
     /**
      * 热力图。
@@ -574,11 +601,11 @@ var  SYLLMap = function(optOptions){
             removeHeatLayer();
         }
 
-    }
+    };
 
     return{
         initialMap: initialMap,
-        getOverLayers: getOverLayers,
+        //getOverLayers: getOverLayers,
         addStations: addStations,
         setCLuster: setCluster,
         ToggleTooltip:ToggleTooltip,
@@ -590,4 +617,4 @@ var  SYLLMap = function(optOptions){
         setHeatLayer: setHeatLayer,
         getMap: getMap
     }
-};
+});

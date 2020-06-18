@@ -7,10 +7,10 @@
 	var L, proj4;
 	if (typeof define === 'function' && define.amd) {
 		// AMD
-		define(['leaflet', 'leaflet/js/lib/leaflet/plugins/providers/proj4'], factory);
+		define(['leaflet/js/lib/leaflet/leaflet', 'leaflet/js/lib/leaflet/plugins/providers/proj4'], factory);
 	} else if (typeof module === 'object' && typeof module.exports === "object") {
 		// Node/CommonJS
-		L = require('leaflet');
+		L = require('leaflet/js/lib/leaflet/leaflet');
 		proj4 = require('leaflet/js/lib/leaflet/plugins/providers/proj4');
 		module.exports = factory(L, proj4);
 	} else {
