@@ -6,11 +6,13 @@
 define([
         'app/popupContent'
         ,'controlChart'
+        ,'markerChart'
+        ,'sliderChart'
+        ,'heatmap'
         ,'exportMap'
         ,'L'
         ,'layui'
-
-        // ,'lib/plugins/search/leaflet-search.src'
+        ,'search'
         ,'sideBar'
         ,'Measure'
         ,'sideBySide'
@@ -21,6 +23,9 @@ define([
         ],function(
             popup
             ,controlChart
+            ,markerChart
+            ,sliderChart
+            ,heatmap
             ,exportMap
             ,L
             ,layui
@@ -92,17 +97,17 @@ define([
 
             L.control.mousePosition().addTo(map);
 
-            // searchControl = new L.Control.Search({
-            //     position:"topleft",
-            //     sourceData: localData,//采用数据传递，不再使用图层处理数据
-            //     initial:false,
-            //     zoom: 18,
-            //     //marker:true,
-            //     //buildTip: customTip,
-            //     collapsed:true,
-            //     hideMarkerOnCollapse:true
-            // });
-            // map.addControl(searchControl);
+            searchControl = new L.Control.Search({
+                position:"topleft",
+                sourceData: localData,//采用数据传递，不再使用图层处理数据
+                initial:false,
+                zoom: 18,
+                //marker:true,
+                //buildTip: customTip,
+                collapsed:true,
+                hideMarkerOnCollapse:true
+            });
+            map.addControl(searchControl);
 
             let measureControl = new L.Control.Measure({
                 position: 'topright',
@@ -553,12 +558,11 @@ define([
      */
     function setSlider(flag,title,type) {
         if(flag){
-            addSlider(title,map,type);
+            sliderChart.addSlider(title,map,type);
         } else {
-            removeSlider(map,type);
+            sliderChart.removeSlider(map,type);
         }
     };
-
 
     /**
      *  泵房瞬时流量历史数据图 直接添加echart对象。
@@ -566,9 +570,9 @@ define([
     function setMarkerChart(flag){
 
         if(flag){
-            addMarkerEChart(map);
+            markerChart.addMarkerEChart(map);
         } else {
-            removeMarkerEChart();
+            markerChart.removeMarkerEChart();
         }
     };
 
@@ -579,10 +583,10 @@ define([
      */
     function setControlChart(flag,title) {
         if(flag){
-            addControlEChart(title,map)
+            controlChart.addControlEChart(title,map)
 
         } else {
-            removeControlEChart();
+            controlChart.removeControlEChart();
         }
     };
 
@@ -594,11 +598,10 @@ define([
     function setHeatLayer(flag,title) {
 
         if(flag){
-            
-            addHeatLayer(title,map);
+            heatmap.addHeatLayer(title,map);
 
         } else {
-            removeHeatLayer();
+            heatmap.removeHeatLayer();
         }
 
     };

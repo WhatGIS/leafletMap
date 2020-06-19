@@ -59,7 +59,7 @@
 (function (factory) {
     if(typeof define === 'function' && define.amd) {
     //AMD
-        define(['leaflet/js/lib/leaflet/leaflet'], factory);
+        define(['L'], factory);
     } else if(typeof module !== 'undefined') {
     // Node/CommonJS
         module.exports = factory(require('leaflet/js/lib/leaflet/leaflet'));

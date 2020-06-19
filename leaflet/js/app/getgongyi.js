@@ -1,8 +1,9 @@
-define(['jquery','layui'],function($,layui){
+define(['jquery','layui','app/devAPI'],function($,layui,devApi){
     function getGongYi(title){
         $.getJSON("/leafletMap/leaflet/data/GongYi.json", function (jsonData) {
             if (jsonData) {
 
+                let bfDic ={};
                 $.each(jsonData,
 
                     function (info, json) {
@@ -11,10 +12,10 @@ define(['jquery','layui'],function($,layui){
                         let dataList = json.List;
                         console.log("数据:" + dataList);
 
-                        bengFangDic[devName] = dataList;
+                        bfDic[devName] = dataList;
                     });
 
-                getDeviceGYHtml(title); //获取工艺图
+                devApi.getDeviceGYHtml(title,bfDic); //获取工艺图
 
                 //建造实例
                 layui.carousel.render({

@@ -57,45 +57,86 @@
 
 //     <script src="leaflet/js/app/devAPI.js" type="application/javascript"></script>
 //     <script src="leaflet/js/app/getgongyi.js" type="application/javascript"></script>
+
 let paths = {
         app: 'app',
         lib: 'lib',
         pluginFolder:'lib/plugins',
         jquery:'lib/jquery/jquery-3.5.1',
         layui:'lib/layui/layui.all',
-        echarts:'lib/plugins/echart/echarts',
+
         html2Canvas:'lib/plugins/html2canvas/html2canvas',
         L:'lib/leaflet/leaflet-src',
 
-        baseMap:'app/leafletPlugin/baseMap',
         chinaProvider:"lib/plugins/providers/leaflet.ChineseTmsProviders",
         sideBySide:'lib/plugins/sides/leaflet-side-by-side',
         mousePosition:'lib/plugins/mousePos/L.Control.MousePosition',
         Measure:'lib/plugins/measure/leaflet-measure',
         sideBar:'lib/plugins/sidebar/leaflet-sidebar',
-        layerEChart:'lib/plugins/echart/leaflet-echarts',
+
+        echarts:'lib/plugins/echart/echarts',
+        leafletEChart:'lib/plugins/echart/leaflet-echarts',
+
         markerCluster:'lib/plugins/markercluster/leaflet.markercluster-src',
+        timeSlider:'lib/plugins/slider/leaflet-timeline-slider',
 
-        //Search:'lib/leaflet/plugins/search/leaflet-search.src',
+        simpleheat:'lib/plugins/heatmap/simpleheat',
+        leafletheat:'lib/plugins/heatmap/leaflet-heat',
 
-        gongYi:'app/getgongyi',
-        syllMap:'app/syllmap',
-        controlChart:'app/leafletPlugin/chart/controlChart',
-        exportMap:'app/leafletPlugin/exportMap/exportMap',
+        search:'lib/plugins/search/leaflet-search.src',
+
+        baseMap: 'app/leafletPlugin/baseMap',
+        gongYi: 'app/getgongyi',
+        syllMap: 'app/syllmap',
+        controlChart: 'app/leafletPlugin/chart/controlChart',
+        markerChart: 'app/leafletPlugin/chart/markerChart',
+        sliderChart: 'app/leafletPlugin/slider/slider_chart',
+        layerChart:'app/leafletPlugin/chart/layerChart',
+        heatmap: 'app/leafletPlugin/heatmap/heatmap',
+        exportMap: 'app/leafletPlugin/exportMap/exportMap',
+
+        threeJs:'lib/vr/three.min',
+        sphoords:'lib/vr/src/sphoords',
+        PSVNavBar:'lib/vr/src/PSVNavBar',
+        PSVNavBarButton:'lib/vr/src/PSVNavBarButton',
+        PhotoSphereViewer:'lib/vr/src/PhotoSphereViewer'
     };
 
 let shim = {
-    // Search:{
-    //     deps:['L'],
-    //     exports:'Search'
-    // },
+
+    'search':{
+        deps:['L','css!lib/plugins/search/leaflet-search.src.css'],
+        exports:'search'
+    },
     'syllMap':{
         deps:['css!main.css','css!lib/font-awesome/css/font-awesome.css'],
         exports:'syllMap'
     },
-    'layerEChart':{
+    'gongYi':{
+        deps:['css!lib/ecgs16/css/css.css'],
+        exports:'gongYi'
+    },
+    'heatmap':{
+        deps:['L','leafletheat'],
+        exports:'heatmap'
+    },
+    'leafletheat':{
+        deps:['L','simpleheat'],
+        exports:'leafletheat'
+    },
+
+    'layerChart':{
+        deps:['L','leafletEChart'],
+        exports:'layerChart'
+    },
+    'leafletEChart':{
         deps:['L','echarts'],
-        exports:'layerEChart'
+        exports:'leafletEChart'
+    },
+
+    'sliderChart':{
+        deps:['L','timeSlider'],
+        exports:'sliderChart'
     },
     'layui':{
         deps:['css!lib/layui/css/layui.css'],
@@ -104,6 +145,10 @@ let shim = {
     'sideBar': {
         deps:['L','css!pluginFolder/sidebar/leaflet-sidebar.css'],
         exports:'sideBar'
+    },
+    'timeSlider':{
+        deps:['L'],
+        exports: 'timeSlider'
     },
     'Measure':{
         deps:['L','css!pluginFolder/measure/leaflet-measure.css'],
@@ -136,14 +181,19 @@ let shim = {
 };
 requirejs.config({
 
-    urlArgs: "bust=" +  (new Date()).getTime(),
+    //urlArgs: "v=" +  (new Date()).getTime(),
 
     baseUrl: 'leaflet/js',
     map:{
         '*':{
-            css:'css'
+            css:'require/plugins/css',
+            text:'require/plugins/text',
+            image:'require/plugins/image',
+            json:'require/plugins/json',
+            domReady:'require/plugins/domReady'
         }
     },
+    waitSeconds: 60,
     paths: paths,
     shim: shim
 });

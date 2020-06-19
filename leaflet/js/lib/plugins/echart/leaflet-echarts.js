@@ -4,6 +4,7 @@
 * ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
 * */
 // window.overlayEchartsIndex = 999;
+
 L.OverlayEcharts = (L.version < "1.0" ? L.Class : L.Layer).extend({
   includes: L.version < "1.0" ? L.Mixin.Events : [],
   _echartsContainer: null,
@@ -105,5 +106,6 @@ L.OverlayEcharts = (L.version < "1.0" ? L.Class : L.Layer).extend({
   }
 }),
   L.overlayEcharts = function(options) {
+    console.log(echarts)
     return new L.OverlayEcharts(options)
 }

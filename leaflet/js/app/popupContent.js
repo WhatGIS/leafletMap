@@ -1,4 +1,4 @@
-define(['jquery','layui','gongYi'],function($,layui,gongYi){
+define(['jquery','layui','gongYi','app/leafletPlugin/chart/tabChart','app/vr'],function($,layui,gongYi,tabChart,vr){
 
     function openStationData(title){
 
@@ -79,7 +79,7 @@ define(['jquery','layui','gongYi'],function($,layui,gongYi){
             content: $('#divTab') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
         });
 
-        setTabChart(title+" 泵机带图","divBjdt");
+        tabChart.setTabChart(title+" 泵机带图","divBjdt");
     }
 
     function openStationGongyi(title){
@@ -91,7 +91,7 @@ define(['jquery','layui','gongYi'],function($,layui,gongYi){
         console.log("摄像头:"+ title);
         //iframe层-多媒体
 
-        loadVrJpg("vrcontainer");
+        vr.loadVrJpg("vrcontainer");
 
         layer.open({
             type: 1,
