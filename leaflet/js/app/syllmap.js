@@ -526,7 +526,7 @@ define([
         if(sidebar){
             sidebar.close();
         }
-        exportMap.exportImage(id);
+        exportMap.exportImage(mapId);
     };
 
     /**
@@ -558,9 +558,20 @@ define([
      */
     function setSlider(flag,title,type) {
         if(flag){
+
+            let haveType = sliderChart.getType()
+            if(haveType!=""){
+                sliderChart.removeSlider(map,haveType);
+            }
+
+
+
             sliderChart.addSlider(title,map,type);
+
         } else {
+
             sliderChart.removeSlider(map,type);
+
         }
     };
 

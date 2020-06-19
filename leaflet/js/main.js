@@ -1,73 +1,16 @@
-// <link rel="stylesheet" href="leaflet/js/lib/font-awesome/css/font-awesome.min.css">
-//     <script src="leaflet/js/lib/jquery/jquery-3.5.1.js" type="application/javascript"></script>
-//
-//     <link rel="stylesheet" href="leaflet/js/lib/layui/css/layui.css">
-//     <script src="leaflet/js/lib/layui/layui.all.js" type="application/javascript"></script>
-//     <link rel="stylesheet" href="leaflet/js/lib/ecgs16/css/css.css">
-//
-//     <link rel="stylesheet" href="leaflet/js/lib/leaflet/leaflet.css" />
-//     <script src="leaflet/js/lib/leaflet/leaflet-src.js" type="application/javascript"></script>
-//
-//     <script src="leaflet/js/lib/leaflet/plugins/providers/proj4.js" type="application/javascript"></script>
-//     <script src="leaflet/js/lib/leaflet/plugins/providers/proj4leaflet.js" type="application/javascript"></script>
-//     <script src="leaflet/js/lib/leaflet/plugins/providers/leaflet.ChineseTmsProviders.js" type="text/javascript"></script>
-//
-//     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/markercluster/MarkerCluster.css">
-//     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/markercluster/MarkerCluster.Default.css">
-//     <script src="leaflet/js/lib/leaflet/plugins/markercluster/leaflet.markercluster-src.js" type="application/javascript"></script>
-//
-//     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/mousePos/L.Control.MousePosition.css"></link>
-//     <script src="leaflet/js/lib/leaflet/plugins/mousePos/L.Control.MousePosition.js"></script>
-//
-//     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/search/leaflet-search.src.css">
-//     <script src="leaflet/js/lib/leaflet/plugins/search/leaflet-search.src.js" type="application/javascript"></script>
-//
-//     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/measure/leaflet-measure.css"/>
-//     <script src="leaflet/js/lib/leaflet/plugins/measure/leaflet-measure.js" type="application/javascript"></script>
-//
-//     <script src="leaflet/js/lib/leaflet/plugins/html2canvas/html2canvas.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/leafletplugin/exportMap/exportMap.js" type="application/javascript"></script>
-//
-//     <script src="leaflet/js/lib/leaflet/plugins/sides/leaflet-side-by-side.js" type="application/javascript"></script>
-//
-//     <link rel="stylesheet" href="leaflet/js/lib/leaflet/plugins/sidebar/leaflet-sidebar.css">
-//     <script src="leaflet/js/lib/leaflet/plugins/sidebar/leaflet-sidebar.js" type="application/javascript"></script>
-//
-//     <script src="leaflet/js/lib/vr/three.min.js" type="application/javascript"></script>
-//     <script src="leaflet/js/lib/vr/src/sphoords.js"></script>
-//     <script src="leaflet/js/lib/vr/src/PhotoSphereViewer.js" type="application/javascript"></script>
-//     <script src="leaflet/js/lib/vr/src/PSVNavBar.js" type="application/javascript"></script>
-//     <script src="leaflet/js/lib/vr/src/PSVNavBarButton.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/vr.js" type="application/javascript"></script>
-//
-//     <script src="leaflet/js/lib/leaflet/plugins/echart/echarts.js" type="application/javascript"></script>
-//     <script src="leaflet/js/lib/leaflet/plugins/echart/leaflet-echarts.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/leafletplugin/chart/controlChart.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/leafletplugin/chart/tabChart.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/leafletplugin/chart/layerChart.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/leafletplugin/chart/markerChart.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/leafletplugin/slider/slider_chart.js" type="application/javascript"></script>
-//
-//     <script src="leaflet/js/lib/leaflet/plugins/slider/leaflet-timeline-slider.js" type="application/javascript"></script>
-//
-//     <script src="leaflet/js/lib/leaflet/plugins/heatmap/simpleheat.js" type="application/javascript"></script>
-//     <script src="leaflet/js/lib/leaflet/plugins/heatmap/leaflet-heat.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/leafletplugin/heatmap/heatmap.js" type="application/javascript"></script>
-
-
-//     <script src="leaflet/js/app/devAPI.js" type="application/javascript"></script>
-//     <script src="leaflet/js/app/getgongyi.js" type="application/javascript"></script>
-
 let paths = {
+        /* Folder Path */
         app: 'app',
         lib: 'lib',
         pluginFolder:'lib/plugins',
+
+        /* 基础库 */
         jquery:'lib/jquery/jquery-3.5.1',
         layui:'lib/layui/layui.all',
-
         html2Canvas:'lib/plugins/html2canvas/html2canvas',
         L:'lib/leaflet/leaflet-src',
 
+        /* leaflet 插件库 */
         chinaProvider:"lib/plugins/providers/leaflet.ChineseTmsProviders",
         sideBySide:'lib/plugins/sides/leaflet-side-by-side',
         mousePosition:'lib/plugins/mousePos/L.Control.MousePosition',
@@ -85,9 +28,15 @@ let paths = {
 
         search:'lib/plugins/search/leaflet-search.src',
 
+        /* 全景图库 */
+        threeJs:'lib/vr/three.min',
+        sphoords:'lib/vr/src/sphoords',
+        PSVNavBar:'lib/vr/src/PSVNavBar',
+        PSVNavBarButton:'lib/vr/src/PSVNavBarButton',
+        PhotoSphereViewer:'lib/vr/src/PhotoSphereViewer',
+
+        /* leaflet 自写库 */
         baseMap: 'app/leafletPlugin/baseMap',
-        gongYi: 'app/getgongyi',
-        syllMap: 'app/syllmap',
         controlChart: 'app/leafletPlugin/chart/controlChart',
         markerChart: 'app/leafletPlugin/chart/markerChart',
         sliderChart: 'app/leafletPlugin/slider/slider_chart',
@@ -95,11 +44,8 @@ let paths = {
         heatmap: 'app/leafletPlugin/heatmap/heatmap',
         exportMap: 'app/leafletPlugin/exportMap/exportMap',
 
-        threeJs:'lib/vr/three.min',
-        sphoords:'lib/vr/src/sphoords',
-        PSVNavBar:'lib/vr/src/PSVNavBar',
-        PSVNavBarButton:'lib/vr/src/PSVNavBarButton',
-        PhotoSphereViewer:'lib/vr/src/PhotoSphereViewer'
+        gongYi: 'app/getgongyi',
+        syllMap: 'app/syllmap'
     };
 
 let shim = {
@@ -129,27 +75,31 @@ let shim = {
         deps:['L','leafletEChart'],
         exports:'layerChart'
     },
-    'leafletEChart':{
-        deps:['L','echarts'],
-        exports:'leafletEChart'
+
+    // 'leafletEChart':{
+    //     deps:['L','echarts'],
+    //     exports:'leafletEChart'
+    // },
+
+    'layui':{
+        deps:['css!lib/layui/css/layui.css'],
+        exports:'layui'
     },
 
     'sliderChart':{
         deps:['L','timeSlider'],
         exports:'sliderChart'
     },
-    'layui':{
-        deps:['css!lib/layui/css/layui.css'],
-        exports:'layui'
-    },
-    'sideBar': {
-        deps:['L','css!pluginFolder/sidebar/leaflet-sidebar.css'],
-        exports:'sideBar'
-    },
     'timeSlider':{
         deps:['L'],
         exports: 'timeSlider'
     },
+
+    'sideBar': {
+        deps:['L','css!pluginFolder/sidebar/leaflet-sidebar.css'],
+        exports:'sideBar'
+    },
+
     'Measure':{
         deps:['L','css!pluginFolder/measure/leaflet-measure.css'],
         exports:'Measure'
@@ -278,7 +228,7 @@ require(['jquery','syllMap'],function(
         syllMap.setHeatLayer(chkHeatStation.checked,title);
     });
 
-    //泵房区域热力图
+    //泵房热力时空图
     document.getElementById("chkHeatWarn").addEventListener("change",function () {
         let chkHeatWarn = document.getElementById("chkHeatWarn");
         let title = chkHeatWarn.title;
