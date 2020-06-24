@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+        #panorama {width:100%; height: 500px;}
+        #result {width:100%;font-size:12px;}
+    </style>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=BGBbLhXGgsPkqRbGTe6zdPGL4OmV09XZ"></script>
+    <title>获取指定的全景图</title>
+</head>
+<body>
+<div id="panorama"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+    var panorama = new BMap.Panorama('panorama');
+    panorama.setPov({heading: -40, pitch: 6});
+    panorama.setPosition(new BMap.Point(120.320032, 31.589666)); //根据经纬度坐标展示全景图
+
+</script>

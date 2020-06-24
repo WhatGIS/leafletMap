@@ -261,7 +261,9 @@ define([
                 newData.typecode = a.typecode;
                 newData.typetitle = a.typetitle;
                 newData.suotitle = a.suotitle;
-                newData.status = a.status;
+                newData.statusRun = a.statusRun;
+                newData.statusDoor = a.statusDoor;
+                newData.statusFix = a.statusFix;
                 newData.loc = [parseFloat(a.y), parseFloat(a.x)];
 
                 if (!hasSetTree)
@@ -313,7 +315,7 @@ define([
                                    }
                                 }
                             });
-                        }else {
+                        } else {
 
                             let idx = filterTree.indexOf(filterData.title);
                             if(idx>-1){
@@ -331,6 +333,7 @@ define([
             }
 
         layui.use(['tree'],function(){
+
             let tree = layui.tree;
 
             tree.render({
@@ -396,6 +399,109 @@ define([
         }
     };
 
+
+    let LeafIcon = L.Icon.extend({
+        options: {
+            //shadowUrl: '/leafletMap/leaflet/png/leaf-shadow.png',
+            iconSize: [24, 24]
+        }
+    });
+
+    let showType = "statRun"; //当前渲染的维度  statRun 泵站运行状态  statDoor 泵站门禁状态  statFix 泵站运维状态
+
+    let stopIcon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/run/0.png"});
+
+    let statIcon = new LeafIcon({iconUrl: "/leafletMap/leaflet/png/run/1.gif"});
+
+    let warnIcon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/run/2.gif"});
+
+    let doorOpenIcon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/men/0.png"});
+
+    let doorCloseIcon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/men/1.png"});
+
+    let fixIcon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/wei/0.png"});
+
+    let fixNoIcon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/wei/1.png"});
+
+    let warnIcon0 = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/warn/0.png"});
+
+    let warnIcon1 = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/warn/1.png"});
+
+    let warnIcon2 = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/warn/2.png"});
+
+    function getIcon(value){
+
+        switch (showType) {
+
+            case "statRun":
+
+                switch (value) {
+
+                    case "0":
+                        return stopIcon;
+                        break;
+                    case "1":
+                        return statIcon;
+                        break;
+                    case "2":
+                        return warnIcon;
+                        break;
+                    default:
+                        return statIcon;
+                }
+                break;
+
+            case "statDoor":
+
+                switch (value) {
+
+                    case "0":
+                        return doorOpenIcon;
+                        break;
+                    case "1":
+                        return doorCloseIcon;
+                        break;
+                    default:
+                        return doorCloseIcon;
+                }
+                break;
+
+
+            case "statFix":
+
+                switch(value){
+                    case "0":
+                        return  fixIcon;
+                        break;
+                    case "1":
+                        return fixNoIcon;
+                        break;
+                    default:
+                        return fixNoIcon;
+                }
+                break;
+
+            case "warn":
+
+                switch (value) {
+                    case "0":
+                        return warnIcon0;
+                        break;
+                    case "1":
+                        return warnIcon1;
+                        break;
+                    case "2":
+                        return warnIcon2;
+                        break;
+                    default:
+                        return  warnIcon0;
+                }
+                break;
+            default:
+                return statIcon;
+        }
+    }
+
     /**
      * 添加站点
      */
@@ -403,18 +509,7 @@ define([
 
         console.log("RenderAllStations!");
 
-        let LeafIcon = L.Icon.extend({
-            options: {
-                //shadowUrl: '/leafletMap/leaflet/png/leaf-shadow.png',
-                iconSize:     [24, 24]
-            }
-        });
 
-        let staticon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/ico27.gif"});
-
-        let stopicon = new LeafIcon({iconUrl: "/leafletMap/leaflet/png/ico28.png"});
-
-        let warnicon = new LeafIcon({iconUrl:"/leafletMap/leaflet/png/ico29.gif"});
 
         markerLayer.clearLayers();
 
@@ -469,7 +564,8 @@ define([
 
 
 
-        }else{ //非聚合模式
+        }
+        else{ //非聚合模式
 
             markerLayer = L.layerGroup(null,{pane:"markerPane"});
 
@@ -489,19 +585,23 @@ define([
 
                 if(!isInFilter) {  //不在过滤范围内的才渲染，filterTree是树形图的过滤数组
 
-                    let micon2 = staticon;
-                    let status = a.status;
+                    let markerIcon = statIcon;
 
-                    if (status === "0") {
-                        micon2 = stopicon;
-                    } else if (status === "2") {
-                        micon2 = warnicon;
+                    if(showType=="statRun")
+                    {
+                        markerIcon = getIcon(a.statusRun);
+                    }
+                    else if(showType == "statDoor"){
+                        markerIcon = getIcon(a.statusDoor);
+                    }
+                    else if(showType == "statFix"){
+                        markerIcon = getIcon(a.statusFix);
                     }
 
                     let marker = L.marker(L.latLng(a.loc), {
                         id: a.title,
                         data: a,
-                        icon: micon2
+                        icon: markerIcon
                     });
 
                     marker.on("click",function(e){

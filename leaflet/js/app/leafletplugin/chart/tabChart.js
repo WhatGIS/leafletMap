@@ -405,12 +405,12 @@ define(['jquery','echarts'],function($,echarts){
                 divQu.appendChild(benA);
 
                 if(bengValue.length>0){
-                    let imgSrc = 'ico28.png';
+                    let imgSrc = '0.png';
                     if(bengValue=='1'){
-                        imgSrc = 'ico27.gif'
+                        imgSrc = '1.gif'
                     } else if(bengValue=='2'){
 
-                        imgSrc = 'ico29.gif';
+                        imgSrc = '2.gif';
                     }
 
                     let image = new Image(25,25);// document.createElement('image');

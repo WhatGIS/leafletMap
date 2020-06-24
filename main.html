@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>leafletMap</title>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=BGBbLhXGgsPkqRbGTe6zdPGL4OmV09XZ"></script>
     <script src="leaflet/js/require/require.js" data-main="leaflet/js/main"></script>
 </head>
 <body>
@@ -40,6 +41,13 @@
             <div id="searchControllDiv" style="padding-top: 10px;">
 
             </div>
+
+            <div id="legendDiv" style="padding-top: 10px;">
+<!--                <div><a>运行状态:</a><li><image src="leaflet/png/"></image></li></div>-->
+
+            </div>
+
+
         </div>
         <div class="sidebar-pane" id="home">
             <h1 class="sidebar-header">
@@ -125,5 +133,5 @@
 </div>
 
 <div id="vrcontainer" style="display: none;"></div>
-
+<div id="streetMap" style="width:100%;height:100%;display: none;"></div>
 </html>

@@ -3,13 +3,16 @@ define(['jquery'
     ,'gongYi'
     ,'app/leafletPlugin/chart/tabChart'
     ,'controlChart'
-    ,'app/vr'],function(
+    ,'app/vr'
+    ,'app/leafletPlugin/bdMap'
+    ],function(
         $
         ,layui
         ,gongYi
         ,tabChart
         ,controlChart
-        ,vr) {
+        ,vr
+        ,bdStreet) {
 
 
 
@@ -145,7 +148,7 @@ define(['jquery'
      * 查看全景图
      * @param title
      */
-    function openStationCamera(title) {
+    function openStationPanorama(title) {
         console.log("摄像头:" + title);
         //iframe层-多媒体
 
@@ -157,6 +160,36 @@ define(['jquery'
             area: ['800px', '550px'],
             shade: false,
             content: $('#vrcontainer')
+            //closeBtn: 0,
+            //shadeClose: true,
+            //content: '//player.youku.com/embed/XMjY3MzgzODg0'
+        });
+    };
+
+    /**
+     * 查看百度街景图图
+     * @param title
+     */
+    function openStationStreetMap(id,title,lng,lat) {
+
+        // var panorama = new BMap.Panorama('panorama');
+        // panorama.setPov({heading: -40, pitch: 6});
+        // panorama.setPosition(new BMap.Point(120.320032, 31.589666)); //根据经纬度坐标展示全景图
+        //
+        // return;
+
+        let divStreet = document.getElementById(id);
+
+        divStreet.innerHTML = "";
+
+        bdStreet.setStreet(id,lng,lat);
+
+        layer.open({
+            type: 1,
+            title: title,
+            area: ['800px', '550px'],
+            shade: false,
+            content: $('#'+id)
             //closeBtn: 0,
             //shadeClose: true,
             //content: '//player.youku.com/embed/XMjY3MzgzODg0'
@@ -216,19 +249,38 @@ define(['jquery'
         });
         popHead.appendChild(iGongYi);
 
-        let iCamera = document.createElement("i");
-        iCamera.setAttribute("id", "btnCamera");
-        iCamera.setAttribute("class", "fa fa-camera fa-2x");
-        iCamera.setAttribute("style", "padding-right:15px;");
-        iCamera.setAttribute("aria-hidden", "true");
-        iCamera.title = "全景图";
-        iCamera.addEventListener("click", function () {
-            openStationCamera(a.title);
+        let iPanorama = document.createElement("i");
+        iPanorama.setAttribute("id", "btnPanorama");
+        iPanorama.setAttribute("class", "fa fa-camera fa-2x");
+        iPanorama.setAttribute("style", "padding-right:15px;");
+        iPanorama.setAttribute("aria-hidden", "true");
+        iPanorama.title = "全景图";
+        iPanorama.addEventListener("click", function () {
+            openStationPanorama(a.title);
         });
-        popHead.appendChild(iCamera);
+        popHead.appendChild(iPanorama);
+
+
+        let iStreetMap = document.createElement("i");
+        iStreetMap.setAttribute("id", "btnStreetMap");
+        iStreetMap.setAttribute("class", "fa fa-street-view fa-2x");
+        iStreetMap.setAttribute("style", "padding-right:15px;");
+        iStreetMap.setAttribute("aria-hidden", "true");
+        iStreetMap.title = "街景图";
+        iStreetMap.addEventListener("click", function () {
+            let xy = a.loc;
+            let lng = parseFloat(xy[1]);
+            let lat = parseFloat(xy[0]);
+            openStationStreetMap('streetMap',a.title,lng,lat);
+        });
+        popHead.appendChild(iStreetMap);
+
 
         return popDiv;
     };
+
+
+
 
 
     return {
