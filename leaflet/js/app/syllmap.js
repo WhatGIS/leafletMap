@@ -5,7 +5,6 @@
 
 define([
         'app/popupContent'
-        ,'controlChart'
         ,'markerChart'
         ,'sliderChart'
         ,'heatmap'
@@ -22,7 +21,6 @@ define([
         ,'markerCluster'
         ],function(
             popup
-            ,controlChart
             ,markerChart
             ,sliderChart
             ,heatmap
@@ -82,18 +80,29 @@ define([
 
             let overLayer ={};
 
-            layerControl = L.control.layers(baseLayers, overLayer);
+            layerControl = L.control.layers(baseLayers, overLayer,{
+                collapsed: false
+            });
 
             layerControl.addTo(map);
+
+
+            layerControl._container.remove();
+            document.getElementById('layerControllDiv').appendChild(layerControl.onAdd(map));
 
             //console.log(layerControl);
 
             getOverLayers();
 
-            L.control.zoom({
+            let mapZoom = L.control.zoom({
                 zoomInTitle: '放大',
                 zoomOutTitle: '缩小'
-            }).addTo(map);
+            });
+            mapZoom.addTo(map);
+            mapZoom._container.remove();
+
+            document.getElementById('zoomControllDiv').appendChild(mapZoom.onAdd(map));
+
 
             L.control.mousePosition().addTo(map);
 
@@ -101,13 +110,18 @@ define([
                 position:"topleft",
                 sourceData: localData,//采用数据传递，不再使用图层处理数据
                 initial:false,
-                zoom: 18,
+                // container:'searchControllDiv',
+                zoom: 15,
                 //marker:true,
                 //buildTip: customTip,
-                collapsed:true,
+                collapsed:false,
                 hideMarkerOnCollapse:true
+
             });
-            map.addControl(searchControl);
+            searchControl.addTo(map);
+
+
+
 
             let measureControl = new L.Control.Measure({
                 position: 'topright',
@@ -115,10 +129,15 @@ define([
                 secondaryLengthUnit: 'meters',
                 primaryAreaUnit: 'sqmiles',
                 secondaryAreaUnit: 'sqmeters',
-                activeColor: '#e2a25d',
-                completedColor: '#f16303'
+                activeColor: '#ec0858',
+                collapsed:false,
+                completedColor: '#d407e3'
             });
             measureControl.addTo(map);
+
+            measureControl._container.remove();
+             document.getElementById('searchControllDiv').appendChild(measureControl.onAdd(map));
+
 
             sidebar = L.control.sidebar("sidebar").addTo(map);
         };
@@ -173,8 +192,8 @@ define([
         //console.log(layerControl);
 
         $.getJSON("/leafletMap/leaflet/data/area.json",function(areaJson){
-            var rows = areaJson.Response.rows;
-            console.log(rows);
+            let rows = areaJson.Response.rows;
+            //console.log(rows);
             if(rows.length>0){
                 $.each(rows,function(i,ele){
                     if(!!ele.area){
@@ -265,7 +284,7 @@ define([
      */
     function setTreeView() {
 
-        console.log(layui);
+        console.log(layui.v);
 
         function checkStationVisible(filterData,flag){
 
@@ -457,6 +476,7 @@ define([
             map.addLayer(markerLayer);
 
             for (let i = 0; i < dataStations.length; i++) {
+
                 let a = dataStations[i];
                 let title = a.title;
 
@@ -478,7 +498,17 @@ define([
                         micon2 = warnicon;
                     }
 
-                    let marker = L.marker(L.latLng(a.loc), {icon: micon2});
+                    let marker = L.marker(L.latLng(a.loc), {
+                        id: a.title,
+                        data: a,
+                        icon: micon2
+                    });
+
+                    marker.on("click",function(e){
+                        console.log(e.target.options.data);
+                        let title = e.target.options.data.title;
+                        popup.updateStationFlow(title);
+                    });
 
                     marker.addTo(markerLayer);
 
@@ -588,20 +618,6 @@ define([
     };
 
     /**
-     * 右下角 Control chart。
-     * @param flag
-     * @param title
-     */
-    function setControlChart(flag,title) {
-        if(flag){
-            controlChart.addControlEChart(title,map)
-
-        } else {
-            controlChart.removeControlEChart();
-        }
-    };
-
-    /**
      * 热力图。
      * @param flag
      * @param title
@@ -627,7 +643,6 @@ define([
         setSideBySide: setSideBySide,
         setSlider: setSlider,
         setMarkerChart:setMarkerChart,
-        setControlChart:setControlChart,
         setHeatLayer: setHeatLayer,
         getMap: getMap
     }

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>leafletMap</title>
-    <script src="leaflet/js/lib/plugins/echart/echarts.js" type="application/javascript"></script>
     <script src="leaflet/js/require/require.js" data-main="leaflet/js/main"></script>
 </head>
 <body>
@@ -11,7 +10,8 @@
     <!-- Nav tabs -->
     <div class="sidebar-tabs">
         <ul role="tablist">
-            <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+            <li><a href="#tool" role="tab"><i class="fa fa-wrench"></i></a></li>
+            <li><a href="#home" role="tab"><i class="fa fa-database"></i></a></li>
             <li><a href="#profile" role="tab"><i class="fa fa-area-chart"></i></a></li>
             <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
             <li><a href="https://github.com/googlegis/leafletmap" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
@@ -24,6 +24,23 @@
 
     <!-- Tab panes -->
     <div class="sidebar-content">
+        <div class="sidebar-pane" id="tool">
+            <h1 class="sidebar-header">
+                工具
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+            </h1>
+            <div id="zoomControllDiv" style="padding-top: 10px;">
+
+            </div>
+
+            <div id="layerControllDiv" style="padding-top: 10px;">
+
+            </div>
+
+            <div id="searchControllDiv" style="padding-top: 10px;">
+
+            </div>
+        </div>
         <div class="sidebar-pane" id="home">
             <h1 class="sidebar-header">
                 站点
@@ -43,18 +60,16 @@
 
         <div class="sidebar-pane" id="profile">
             <h1 class="sidebar-header">巡检<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-            <div style="padding: 5px;">
-                <input type="checkbox" id="chkLL" value="liu" title="泵房瞬时流量历史曲线图">泵房瞬时流量曲线图</input>
-            </div>
-            <div style="padding: 5px;">
-                <input type="checkbox" id="chkYL" value="liu" title="泵房压力历史数据雷达图">泵房压力时空雷达图</input>
-            </div>
-            <div style="padding: 5px;">
-                <input type="checkbox" id="chkWarn" value="warn" title="泵房报警时空专题图">泵房报警时空专题图</input>
+
+            <div class="layui-inline" style="padding-top: 5px;">
+                <label style="padding-left: 10px;">请选择时间</label>
+                <div class="layui-input-inline" style="padding-left: 5px;">
+                    <input type="text" class="layui-input" id="inputDate" placeholder="开始 到 结束">
+                </div>
             </div>
 
             <div style="padding: 5px;">
-                <input type="checkbox" id="chkzongHe" value="zonghe" title="泵房综合数据实时数据图">泵房综合数据实时数据图</input>
+                <input type="checkbox" id="chkWarn" value="warn" title="泵房报警时空专题图">泵房报警时空专题图</input>
             </div>
 
             <div style="padding: 5px;">

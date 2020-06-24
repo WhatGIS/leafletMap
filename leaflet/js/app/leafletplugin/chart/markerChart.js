@@ -12,8 +12,8 @@ define(['jquery','L','echarts'],function($,L,echarts){
 
             let icon = L.divIcon({
                 className: 'leaflet-echart-icon',
-                iconSize: [250, 220],
-                html: '<div id="' + domId + '" style="width: 250; height: 220px; position: relative; background-color: transparent;"></div>'
+                iconSize: [550, 520],
+                html: '<div id="' + domId + '" style="width: 550; height: 520px; position: relative; background-color: transparent;"></div>'
             });
 
             let picMarker = L.marker(L.latLng(location), {

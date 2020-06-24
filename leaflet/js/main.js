@@ -152,7 +152,7 @@ require(['jquery','syllMap'],function(
         $,
         syllMap
         ){
-    console.log($);
+    //console.log($);
 
     let option = {
         mapId:"divmap",
@@ -191,20 +191,28 @@ require(['jquery','syllMap'],function(
         syllMap.setSideBySide(chkScroll.checked);
     });
 
-    //所有泵房流量历史数据柱状图
-    document.getElementById("chkLL").addEventListener("change",function () {
-        let chkLL = document.getElementById("chkLL");
-        let title = chkLL.title;
-        syllMap.setMarkerChart(chkLL.checked,title);
+    // //所有泵房流量历史数据柱状图
+    // document.getElementById("chkLL").addEventListener("change",function () {
+    //     let chkLL = document.getElementById("chkLL");
+    //     let title = chkLL.title;
+    //     syllMap.setMarkerChart(chkLL.checked,title);
+    //
+    // });
+    //
+    // //泵房压力历史数据时空图
+    // document.getElementById("chkYL").addEventListener("change",function () {
+    //     let chkYL = document.getElementById("chkYL");
+    //     let title = chkYL.title;
+    //     syllMap.setSlider(chkYL.checked,title,'marker');
+    // });
 
-    });
-
-    //泵房压力历史数据时空图
-    document.getElementById("chkYL").addEventListener("change",function () {
-        let chkYL = document.getElementById("chkYL");
-        let title = chkYL.title;
-        syllMap.setSlider(chkYL.checked,title,'marker');
-    });
+    // //单个综合数据实时图
+    // document.getElementById("chkzongHe").addEventListener("change",function () {
+    //     let chkzongHe = document.getElementById("chkzongHe");
+    //     let title = chkzongHe.title;
+    //     syllMap.setControlChart(chkzongHe.checked,title);
+    //
+    // });
 
     //泵房报警历史数据时空图
     document.getElementById("chkWarn").addEventListener("change",function () {
@@ -213,13 +221,7 @@ require(['jquery','syllMap'],function(
         syllMap.setSlider(chkWarn.checked,title,'layer');
     });
 
-    //单个综合数据实时图
-    document.getElementById("chkzongHe").addEventListener("change",function () {
-        let chkzongHe = document.getElementById("chkzongHe");
-        let title = chkzongHe.title;
-        syllMap.setControlChart(chkzongHe.checked,title);
 
-    });
 
     //泵房区域热力图
     document.getElementById("chkHeatStation").addEventListener("change",function () {
@@ -235,5 +237,15 @@ require(['jquery','syllMap'],function(
         syllMap.setSlider(chkHeatWarn.checked,title,'heat');
     });
 
+    layui.use('laydate',function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem:'#inputDate'
+            ,type:'datetime'
+            ,range:'到'
+            ,format:'yyyy年M月d日H时m分s秒'
+        });
+    });
 
 });

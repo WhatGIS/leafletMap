@@ -1,5 +1,7 @@
 define(['jquery','echarts'],function($,echarts){
-    function getBjdtData(jsonData){
+
+    //泵机带图
+    function getBjData(jsonData){
 
         let colorTypes = {
             "运行":{
@@ -41,12 +43,12 @@ define(['jquery','echarts'],function($,echarts){
         return data;
     }
 
-    function getDuriationOption(title,jsonData){
+    function getBjOption(jsonData){
 
         let  data = [];
         let  categories =Object.keys(jsonData).reverse();
 
-        data = getBjdtData(jsonData);
+        data = getBjData(jsonData);
 
         console.log(data);
 
@@ -140,31 +142,313 @@ define(['jquery','echarts'],function($,echarts){
         return option;
     }
 
-
-    function addTabChart(title,id,jsonData){
+    function addBjTabChart(id,jsonData){
 
         // 基于准备好的dom，初始化echarts实例
 
         let myChart = echarts.init(document.getElementById(id));
 
-        let option = getDuriationOption(title,jsonData);
+        let option = getBjOption(jsonData);
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
 
     };
 
-    function setTabChart(title,id) {
+    //流量历史曲线
+    function getYlLsOption(jsonData){
+
+        let timeArray = jsonData['time'];
+        let valueArray = jsonData['value'];
+        let keyArray = Object.keys(valueArray);
+
+        let seriesResult =[];
+
+        $.each(valueArray,function (index,value) {
+
+            let cName = index;
+            let cValue= value;
+
+            seriesResult.push({
+                name:cName,
+                type:'line',
+                data: cValue,
+                markLine:{
+                    silent: true,
+                    data: [{
+                        yAxis: 0
+                    }, {
+                        yAxis: 3
+                    }, {
+                        yAxis: 5
+                    }, {
+                        yAxis: 10
+                    }, {
+                        yAxis: 20
+                    }]
+                }
+            });
+        });
+
+        let option = {
+            // title: {
+            //     text: 'Beijing AQI'
+            // },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                data: timeArray
+            },
+            yAxis: {
+                splitLine: {
+                    show: false
+                }
+            },
+            legend:{
+                top: 5,
+                left:'60%',
+                data:keyArray
+            },
+            toolbox: {
+                //left: 'top',
+                feature: {
+                    // dataZoom: {
+                    //     yAxisIndex: 'none'
+                    // },
+                    //restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [{
+                startValue: '2014-06-01'
+            }, {
+                type: 'inside'
+            }],
+            visualMap: {
+                top: 5,
+                left: 5,
+                orient:'horizontal',
+                pieces: [{
+                    gt: -10,
+                    lte: 0,
+                    color: '#cc0033'
+                }, {
+                    gt: 0,
+                    lte: 3,
+                    color: '#ff9933'
+                }, {
+                    gt: 3,
+                    lte: 10,
+                    color: '#096'
+                }, {
+                    gt: 10,
+                    lte: 100,
+                    color: '#cc0033'
+                }],
+                outOfRange: {
+                    color: '#999'
+                }
+            },
+            series:seriesResult
+        }
+
+        return option;
+    }
+
+    function addYlLsTabChart(id,jsonData){
+
+        let myChart = echarts.init(document.getElementById(id));
+
+        let option = getYlLsOption(jsonData);
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    };
+
+    //流量历史曲线
+    function getLlLsOption(jsonData){
+
+        let timeArray = jsonData['time'];
+        let valueArray = jsonData['value'];
+        let keyArray = Object.keys(valueArray);
+
+        let seriesResult =[];
+
+        $.each(valueArray,function (index,value) {
+
+            let cName = index;
+            let cValue= value;
+
+            seriesResult.push({
+                name:cName,
+                type:'line',
+                data: cValue,
+                markLine:{
+                    silent: true,
+                    data: [{
+                        yAxis: 0
+                    }, {
+                        yAxis: 3
+                    }, {
+                        yAxis: 5
+                    }, {
+                        yAxis: 10
+                    }, {
+                        yAxis: 20
+                    }]
+                }
+            });
+        });
+
+        let option = {
+            // title: {
+            //     text: 'Beijing AQI'
+            // },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                data: timeArray
+            },
+            yAxis: {
+                splitLine: {
+                    show: false
+                }
+            },
+            legend:{
+                top: 5,
+                left:'60%',
+                data:keyArray
+            },
+            toolbox: {
+                //left: 'top',
+                feature: {
+                    // dataZoom: {
+                    //     yAxisIndex: 'none'
+                    // },
+                    //restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [{
+                startValue: '2014-06-01'
+            }, {
+                type: 'inside'
+            }],
+            visualMap: {
+                top: 5,
+                left: 5,
+                orient:'horizontal',
+                pieces: [{
+                    gt: -10,
+                    lte: 0,
+                    color: '#cc0033'
+                }, {
+                    gt: 0,
+                    lte: 3,
+                    color: '#ff9933'
+                }, {
+                    gt: 3,
+                    lte: 10,
+                    color: '#096'
+                }, {
+                    gt: 10,
+                    lte: 100,
+                    color: '#cc0033'
+                }],
+                outOfRange: {
+                    color: '#999'
+                }
+            },
+            series:seriesResult
+        }
+        
+        return option;
+    }
+
+    function addLlLsTabChart(id,jsonData){
+
+        let myChart = echarts.init(document.getElementById(id));
+
+        let option = getLlLsOption(jsonData);
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    };
+
+    //泵状态
+    function setBztTabChart(id,jsonData){
+
+        let content = document.getElementById(id);
+        content.setAttribute("style","padding:20px;")
+        content.innerHTML = '';
+
+        $.each(jsonData,function (qName,qValue) {
+            let divQu = document.createElement('div');
+            divQu.setAttribute('class','bztQu');
+            let quName = qName;
+            let quValue = qValue;
+
+            let qua = document.createElement('a');
+            qua.innerText = quName;
+            divQu.appendChild(qua);
+
+
+            $.each(quValue,function(bName,bValue){
+                let bengName = bName;
+                let bengValue = bValue;
+
+                let benA = document.createElement("a")
+                benA.innerText = bengName;
+                benA.setAttribute('class','bztJi');
+                divQu.appendChild(benA);
+
+                if(bengValue.length>0){
+                    let imgSrc = 'ico28.png';
+                    if(bengValue=='1'){
+                        imgSrc = 'ico27.gif'
+                    } else if(bengValue=='2'){
+
+                        imgSrc = 'ico29.gif';
+                    }
+
+                    let image = new Image(25,25);// document.createElement('image');
+                    imgSrc = 'leaflet/png/'+imgSrc;
+                    image.src = imgSrc;
+
+                    divQu.appendChild(image);
+                }
+            });
+
+            content.appendChild(divQu);
+        });
+
+
+    };
+
+    function setTabChart(ZtId,YlId,LlId,bjId) {
+
         console.log(echarts);
 
         $.getJSON("/leafletMap/leaflet/data/bengfang.json", function (jsonData) {
-            let bjdtJson = jsonData["泵机带图"];
-            addTabChart(title,id,bjdtJson);
+
+            let ztJson = jsonData['泵状态'];
+            setBztTabChart(ZtId,ztJson);
+
+            let ylJson = jsonData['压力曲线'];
+            addYlLsTabChart(YlId,ylJson);
+
+            let llJson = jsonData['流量曲线'];
+            addLlLsTabChart(LlId,llJson);
+
+            let bjJson = jsonData["泵机带图"];
+            addBjTabChart(bjId,bjJson);
 
         });
     };
 
     return{
         setTabChart:setTabChart
-    }
+    };
 })

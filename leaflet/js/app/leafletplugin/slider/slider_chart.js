@@ -2,7 +2,7 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
     /**
      * 滑动控件
      */
-    let sliderControl;
+    let sliderControls={};
 
     /**
      * 控件是否已经添加的标识，已经添加 true 就 update，false 就 add.
@@ -10,6 +10,7 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
      */
     let haveSet = false;
 
+    let haveType = "";
     /**
      * 添加滑动控件对应的数据和事件
      * @param keyArray
@@ -17,7 +18,7 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
      * @param valueData
      * @param title
      */
-    function setSliderData(timeArray,geoData,valueData,title,map){
+    function setSliderLayerData(timeArray,geoData,valueData,title,map){
 
         let getDataAddLayer = function( {label, value} ) {
 
@@ -32,12 +33,14 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
             }
         };
 
-        sliderControl = L.control.timelineSlider({
+        let sliderControl = L.control.timelineSlider({
             timelineItems: timeArray,
             changeMap: getDataAddLayer,
             extraChangeMapParams: {exclamation: "Hello World!"} });
 
         sliderControl.addTo(map);
+
+        sliderControls['layer']  = sliderControl
     };
 
 
@@ -65,12 +68,14 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
             }
         };
 
-        sliderControl = L.control.timelineSlider({
+        let sliderControl = L.control.timelineSlider({
             timelineItems: timeArray,
             changeMap: getDataAddMarkers,
             extraChangeMapParams: {exclamation: "Hello World!"} });
 
         sliderControl.addTo(map);
+
+        sliderControls['marker'] = sliderControl;
     };
 
 
@@ -91,19 +96,21 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
             }
         };
 
-        sliderControl = L.control.timelineSlider({
+        let sliderControl = L.control.timelineSlider({
             timelineItems: timeArray,
             changeMap: getDataAddHeat,
             extraChangeMapParams: {exclamation: "Hello World!"} });
 
         sliderControl.addTo(map);
+
+        sliderControls['heat'] = sliderControl;
     };
     /**
      * 添加滑动控件
      * @param title
      */
     function addSlider(title,map,type){
-
+        haveType = type;
         $.getJSON("/leafletMap/leaflet/data/stations.json", function (jsonData) { //获取站点坐标值
             if (jsonData) {
 
@@ -120,27 +127,7 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
 
                             console.log(keyArray);
 
-                            setSliderData(keyArray, geoData, valueData, title, map);
-                        }
-                    });
-                }
-                else if (type == "marker")
-                {
-
-                    $.getJSON("/leafletMap/leaflet/data/yl10.json", function (jsonData) { //获取站点坐标值
-
-                        if (jsonData) {
-
-                            let keyArray = jsonData["key"];
-                            let valueData = jsonData["value"];
-
-                            let timeArray = Object.keys(valueData);
-
-                            console.log(keyArray);
-
-                            console.log(timeArray);
-
-                            setSliderMarkerData(keyArray, timeArray, geoData, valueData, title, map);
+                            setSliderLayerData(keyArray, geoData, valueData, title, map);
                         }
                     });
                 }
@@ -164,27 +151,47 @@ define(['jquery','L','timeSlider','layerChart','markerChart','heatmap'],function
         });
     };
 
+    function getType(){
+        return haveType;
+    }
+
     /**
      * 删除滑动控件
      */
     function removeSlider(map,type){
+
+        haveSet = false;
+        haveType = "";
+
         if(type=="layer"){
             layerChart.removeLayerEChart(map);
-            sliderControl.remove();
+            sliderControls['layer'].remove();
+
             haveSet = false;
+
+            let chkWarn = document.getElementById("chkWarn");
+            chkWarn.checked = false;
+            haveType = ""
+
         } else if(type=='marker'){
             markerChart.removeMarkerEChart();
-            sliderControl.remove();
+            sliderControls['marker'].remove();
             haveSet = false;
+            let chkYL = document.getElementById("chkYL");
+            chkYL.checked = false ;
+
         } else if(type == 'heat'){
             heatmap.removeHeatLayer();
-            sliderControl.remove();
+            sliderControls['heat'].remove();
             haveSet = false;
-        }
+            let chkHeatWarn = document.getElementById("chkHeatWarn");
+            chkHeatWarn.checked = false;
 
+        }
     };
     
     return{
+        getType:getType,
         addSlider: addSlider,
         removeSlider:removeSlider
     };
